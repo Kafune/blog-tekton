@@ -5,6 +5,8 @@
 Dit is het start van het onderzoek voor Tekton.
 
 Dit is het start van het onderzoek voor Tekton. Introductie op blogpost schrijven.
+Bron met footnote[^1],
+
 
 ## Wat is Tekton?
 
