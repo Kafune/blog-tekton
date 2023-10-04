@@ -16,6 +16,7 @@ Andere developers die geïnteresseerd zijn in Tekton. Mijn doel is om de tool te
   - Onderzoeksmethoden:
     - Available product analysis
     - Competitive analysis
+    - Expert analysis
     - Literature study
 - Wat zijn de belangrijkste kenmerken en voordelen van Tekton CI/CD?
   - Onderzoeksmethoden
@@ -26,14 +27,16 @@ Andere developers die geïnteresseerd zijn in Tekton. Mijn doel is om de tool te
     - Literature study
     - Prototyping
 - Hoe kunnen aangepaste taken en bronnen worden gedefinieerd en geïntegreerd in een Tekton-pijplijn?
-- Onderzoeksmethoden
-  - Literature study
-  - Prototyping
-- Op welke manier kan Tekton worden geïntegreerd met populaire versiebeheersystemen zoals Git?
   - Onderzoeksmethoden
+    - Literature study
     - Prototyping
 - Hoe kunnen triggers en gebeurtenissen worden gebruikt om automatische uitvoering van pijplijnen te activeren?
   - Onderzoeksmethoden
+    - Literature study
+    - Prototyping
+- Op welke manier kan Tekton worden geïntegreerd met populaire versiebeheersystemen zoals Git?
+  - Onderzoeksmethoden
+    - Literature Study
     - Prototyping
 - Wat zijn de best practices voor het schrijven van effectieve Tekton-pijplijnen en taken?
   - Onderzoeksmethoden
@@ -44,9 +47,10 @@ Andere developers die geïnteresseerd zijn in Tekton. Mijn doel is om de tool te
 - Hoe kan Tekton worden gebruikt in combinatie met andere tools en technologieën zoals Kubernetes en Docker?
   - Onderzoeksmethoden
     - Prototyping
+    - Community research
 - Welke mogelijkheden biedt Tekton voor het implementeren van continue integratie en implementatie in een cloudomgeving?
   - Onderzoeksmethoden
     - Available product analysis
 - Wat zijn de mogelijke uitdagingen en oplossingen bij het implementeren van Tekton CI/CD in een ontwikkelteam?
   - Onderzoeksmethoden
-    - Prototyping
+    - Community research
