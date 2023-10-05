@@ -2,17 +2,20 @@
 
 <img src="https://tekton.dev/images/tekton-horizontal-color.png" width="200>" align="right">
 
+INTRODUCTIE
+
 Dit is het start van het onderzoek voor Tekton. Introductie op blogpost schrijven.
 Bron met footnote[^1],'
 
 ## Gebruik van Tekton: Clonen repository
-Pre reqs:
+Minimale Vooreisen:
 ```
 Minikube: lokaal draaien van Kubernetes
-Tekton CLI: tkn
+Kubectl: Command line voor Kubernetes
+tkn: Command line voor Tekton
 ```
 
-
+[community hub](https://hub.tekton.dev/)
 Stappen:
 ```
 0. Installeer Git clone volgens tutorial
@@ -33,20 +36,39 @@ kubectl create secret generic ssh-secret --from-file=ssh-privatekey=C:\Users\Kac
 ```
 
 ## Wat is Tekton?
-Tekton is een open-source framework dat wordt gebruikt voor het bouwen, testen en implementeren van cloud-native applicaties. Het is specifiek ontworpen om CI/CD (Continuous Integration/Continuous Deployment) pipelines te definiëren en uit te voeren in een Kubernetes-omgeving. Tekton maakt het mogelijk om de verschillende stappen van een ontwikkelingsproces te automatiseren en te orchestreren, waardoor teams efficiënter kunnen werken bij het ontwikkelen en implementeren van software in Kubernetes-clusters.
+Tekton is een open-source framework dat wordt gebruikt voor het bouwen, testen en implementeren van cloud-native applicaties. Het is specifiek ontworpen om CI/CD (Continuous Integration/Continuous Deployment) pipelines te definiëren en uit te voeren in een Kubernetes-omgeving. Hierdoor kunnen ontwikkelaars via cloud providers zoals Kubernetes hun applicatie bouwen, testen en deployen [(Tekton, z.d)](https://tekton.dev/).
+
+Er zijn aardig wat overeenkomsten tussen andere CI/CD Tools. Het grootste verschil is dat Tekton vooral de nadruk op containerisatie zet. Daarom is Tekton op Kubernetes gebouwd. Tekton maakt en voert alle instanties van taken en pipelines uit op verschillende containers. Deze pipelines zijn van tevoren te configureren met YAML bestanden. Bij Gitlab CI/CD is er een voorgeconfigureerde Gitlab runner nodig om pipelines te kunnen draaien.  
+
+## Hoe werkt tekton?
+
+Tekton werkt door gebruik te maken van een reeks van Kubernetes-resources die samenwerken om CI/CD-pipelines te definiëren en uit te voeren. Hierdoor is het makkelijker om Tekton met een bestaande Kubernetes infrastructuur te integreren[^bron](https://www.stakater.com/post/github-actions-vs-bitbucket-pipelines-vs-gitlab-ci-vs-tekton-bestcicdtool) De belangrijkste kenmerken hierbij zijn:
+![https://tekton.dev/docs/concepts/concept-model/](https://tekton.dev/docs/concepts/concept-tasks-pipelines.png)
+**Figuur 2**
+
+**Resources:** Tekton maakt gebruik van resources om input- en outputgegevens van een pipeline te beheren. Dit kunnen bijvoorbeeld broncode-repositories, container-images, configuratiebestanden of andere artefacten zijn.
+
+**Steps**: Een step is een uitvoering van een commando in CI/CD, zoals het uitvoeren van unit tests, of het implementeren van een applicatie. Tekton voert elke stap uit met een Docker container image[Tekton overview]().
+
+**Tasks:** Een taak bestaat uit een collectie van **steps**. Het is een geautomatiseerde stap die specifieke acties uitvoert, zoals het bouwen van een containerimage, het uitvoeren van tests of. In Gitlab is dit vergelijkbaar met de script annotatie.
+
+**Pipeline:** Een pipeline in Tekton bestaat uit een collectie **tasks** die Tekton op een bepaalde volgorde uitvoert. Hiermee kunnen ontwikkelaars complexe workflows definiëren die bestaan uit meerdere taken.
+
+![Voorbeelden toepassing pipeline](https://tekton.dev/docs/concepts/concept-runs.png)**Figuur 3**
 
 
+**TaskRuns**: Toont alle instanties met de type **tasks**
 
-Tekton CI/CD is een open-source project dat een raamwerk biedt voor het creëren van continuous integration en continuous delivery (CI/CD) systemen. Het is ontworpen om cloud-native te zijn en werkt goed samen met gecontaineriseerde applicaties en Kubernetes.
+**PipelineRuns**: Toont alle instanties met de type **pipeline**.
 
+**Trigger:** Tekton kan worden geïntegreerd met triggersystemen, waardoor pipelines kunnen worden geactiveerd op basis van gebeurtenissen zoals codecommits, pull-aanvragen of andere gebeurtenissen in een versiebeheersysteem.
 
+**Workspaces:** Workspaces bieden een manier om gegevens tussen taken in een pipeline te delen. Ze stellen taken in staat om gegevens te schrijven naar en te lezen uit een gedeelde opslagplaats.
 
-## Waar bestaat Tekton uit?
-
-It consists of Tekton Pipelines, which provides the building blocks, and of supporting components, such as Tekton CLI and Tekton Catalog, that make Tekton a complete ecosystem. Tekton is part of the CD Foundation, a Linux Foundation project.[https://tekton.dev/docs/concepts/overview/]
+Over het algemeen biedt Tekton een gestandaardiseerde manier om CI/CD-pipelines te definiëren en uit te voeren in een Kubernetes-omgeving. Het is ontworpen om eenvoudig te integreren met andere tools en systemen, waardoor het een populaire keuze is geworden voor teams die Kubernetes gebruiken voor containerorkestratie.
 
 ## Kenmerken en voordelen
-
+### v1
 Het brengt een aantal voordelen met zich mee:
 
 Container-Native: Tekton was designed to work natively on Kubernetes, and it incorporates Kubernetes best practices by default[^1](https://platform9.com/blog/argo-cd-vs-tekton-vs-jenkins-x-finding-the-right-gitops-tooling/).
@@ -54,81 +76,29 @@ Container-Native: Tekton was designed to work natively on Kubernetes, and it inc
 Tekton maakt gebruik van YAML-bestanden om CI/CD-pipelines te definiëren. Dit maakt het gemakkelijk te begrijpen en te beheren, en bevordert een infrastructuur-als-code aanpak. Dit is in principe hetzelfde als Gitlab en Github
 
 - Maakt gebruik van YAML om pipelines te beschrijven
-- Alleen bedoeld voor native Kubernetes
 - Werkt goed met Jenkins, Skafoold en andere CI/CD Tools
-- Tekton installs and runs as an extension on a Kubernetes cluster and comprises a set of Kubernetes Custom Resources that define the building blocks you can create and reuse for your pipelines.
 
 Ook brengt Tekton een aantal voordelen voor developers die CI/CD systemen bouwen:
 
-- Platformonafhankelijkheid: Tekton kan worden uitgevoerd op verschillende cloudplatforms, zoals Kubernetes, en is ook geschikt voor on-premises implementaties. Dit betekent dat je de vrijheid hebt om het te draaien waar je infrastructuur zich bevindt.
+- Platformonafhankelijkheid: Tekton draait op Kubernetes als een set van [Kubernetes Custom Resource](https://kubernetes.io/docs/concepts/extend-kubernetes/api-extension/custom-resources/), waardoor Tekton niet afhankelijk is van een specifieke platform en los draait van andere Kubernetes resources.
 - Native Kubernetes-integratie: Tekton is ontworpen om naadloos samen te werken met Kubernetes. Het maakt gebruik van Kubernetes-podspecs om taken uit te voeren, waardoor het eenvoudig kan worden geïntegreerd in bestaande Kubernetes-omgevingen.
-- Declaratieve configuratie: Tekton maakt gebruik van YAML-bestanden voor het definiëren van pipelines, taken en resources. Dit zorgt voor een eenvoudige en begrijpelijke manier om CI/CD-pijplijnen te definiëren en te onderhouden.
-- Schaalbaarheid: Door gebruik te maken van Kubernetes voor het orkestreren van taken, profiteert Tekton van de schaalbaarheid en betrouwbaarheid van het Kubernetes-platform. Hierdoor kunnen teams pipelines uitvoeren op een schaal die geschikt is voor hun project.
+- Declaratieve configuratie: Tekton maakt gebruik van YAML-bestanden voor het definiëren van pipelines, taken en resources. Dit zorgt voor een eenvoudige en begrijpelijke manier om CI/CD-pijplijnen te definiëren en te onderhouden. Het is hierdoor makkelijker om deze pipelines in verschillende projecten neer te zetten.
+- Schaalbaarheid: Door gebruik te maken van Kubernetes voor het orkestreren van taken, profiteert Tekton van de schaalbaarheid en betrouwbaarheid van het Kubernetes-platform. Hierdoor kunnen teams pipelines uitvoeren op een schaal die geschikt is voor hun project, bijvoorbeeld meerdere microservices met een of meerdere pipelines.
+
+
+### v2 met bron
 
 - Customizable. Tekton entities are fully customizable, allowing for a high degree of flexibility. Platform engineers can define a highly detailed catalog of building blocks for developers to use in a wide variety of scenarios.
 - Reusable. Tekton entities are fully portable, so once defined, anyone within the organization can use a given pipeline and reuse its building blocks. This allows developers to quickly build complex pipelines without “reinventing the wheel.”
 - Expandable. Tekton Catalog is a community-driven repository of Tekton building blocks. You can quickly create new and expand existing pipelines using pre-made components from the Tekton Catalog.
 - Standardized. Tekton installs and runs as an extension on your Kubernetes cluster and uses the well-established Kubernetes resource model. Tekton workloads execute inside Kubernetes containers.
 - Scalable. To increase your workload capacity, you can simply add nodes to your cluster. Tekton scales with your cluster without the need to redefine your resource allocations or any other modifications to your pipelines.
+[Bron](https://tekton.dev/docs/concepts/overview/)
 
-## Hoe werkt tekton?
 
-![Tekton triggerflow](https://tekton.dev/images/TriggerFlow.svg)
 
-```
-Kortere versie:
-Tekton werkt binnen Kubernetes en maakt gebruik van taken en pipelines om CI/CD-processen te automatiseren.
-
-Task: Een afzonderlijke eenheid van werk.
-Pipeline: Een reeks van taken die in een bepaalde volgorde worden uitgevoerd.
-TaskRun: Een instantie van een Task die wordt uitgevoerd.
-PipelineResource: Biedt toegang tot externe bronnen.
-Workspace: Gedeelde ruimte voor gegevensuitwisseling tussen stappen.
-Trigger en EventListener: Starten pipelines op basis van gebeurtenissen.
-Dit maakt het mogelijk om flexibele CI/CD-pipelines te creëren en uit te voeren in Kubernetes-omgevingen.
-```
-
-Tekton werkt door gebruik te maken van een reeks van Kubernetes-resources die samenwerken om CI/CD-pipelines te definiëren en uit te voeren. Hier zijn de belangrijkste concepten en stappen:
-
-## steps, tasks, pipelines
-
-Task (Taak):
-
-Een Task definieert een enkele eenheid van werk, zoals het bouwen van een container, uitvoeren van tests, of pushen van een image naar een container registry. Een Task is een op zichzelf staande entiteit die herbruikbaar is.
-Pipeline (Pipeline):
-
-Een Pipeline is een reeks van taken die in een bepaalde volgorde worden uitgevoerd. Het definieert de workflow van het ontwikkelproces. Een Pipeline bestaat uit verschillende stappen, elk bestaande uit een specifieke taak.
-TaskRun (TaakRun):
-
-Een TaskRun is een instantie van een Task die wordt uitgevoerd. Het bevat informatie zoals de specifieke parameters en de uitvoeringsstatus van de Task.
-PipelineResource (PipelineBron):
-
-Een PipelineResource biedt toegang tot externe bronnen zoals Git-repositories, container images en andere artefacten die tijdens de pipeline worden gebruikt.
-Workspace (Werkruimte):
-
-Een Workspace is een gedeelde ruimte die wordt gebruikt om gegevens tussen verschillende stappen in een pipeline door te geven.
-Trigger (Trigger):
-
-Een Trigger is een gebeurtenis die de start van een pipeline triggert. Dit kan bijvoorbeeld een code push naar een Git-repository zijn.
-EventListener (EvenementLuisteraar):
-
-Een EventListener luistert naar triggers en start de bijbehorende pipeline op basis van het getriggerde evenement.
-![https://tekton.dev/docs/concepts/concept-model/](https://tekton.dev/docs/concepts/concept-tasks-pipelines.png)
-
-Samen zorgen deze concepten ervoor dat ontwikkelaars CI/CD-pipelines kunnen definiëren en uitvoeren binnen een Kubernetes-omgeving. Hier is een algemene workflow:
-
-Definieer taken: Ontwikkelaars definiëren herbruikbare taken die specifieke stappen van het CI/CD-proces uitvoeren, zoals bouwen, testen, implementeren, enz.
-
-Bouw de pipeline: Gebruikmakend van deze taken, definieer je een pipeline die de stappen en de volgorde van uitvoering bepaalt.
-
-Configureren van resources: Stel de benodigde bronnen zoals Git-repositories en container images in met behulp van PipelineResources.
-
-Start de pipeline: Gebruik triggers of start handmatig een pipeline om het CI/CD-proces te starten.
-
-Monitor en beheer de uitvoering: Volg de status van de taken en pipelines, bekijk de uitvoeringslogboeken en grijp in indien nodig.
-
-Dit is een vereenvoudigde uitleg, maar het geeft een idee van hoe Tekton werkt. Het biedt een flexibele en schaalbare manier om CI/CD-processen te automatiseren in Kubernetes-omgevingen.
 ## Gebruik met Git
+### Workshop git
 
 Webhooks en Events:
 
@@ -210,7 +180,6 @@ Door deze best practices te volgen, kun je effectieve en goed onderhouden Tekton
 
 Tekton is een open-source framework voor het bouwen, uitvoeren en onderhouden van CI/CD-pipelines. Het is speciaal ontworpen voor gebruik in cloudomgevingen en biedt verschillende mogelijkheden voor het implementeren van continue integratie (CI) en continue implementatie (CD). Hier zijn enkele van de belangrijkste mogelijkheden van Tekton:
 
-
 Container-Native Workloads: Tekton is ontworpen om te werken met containers, waardoor het goed past in cloudomgevingen die vaak draaien op containerorkestratieplatforms zoals Kubernetes.
 
 Declaratieve Pipelines: Tekton maakt gebruik van YAML-bestanden om pipelines te definiëren, waardoor je je CI/CD-processen kunt declareren en versiebeheer kunt toepassen.
@@ -231,8 +200,8 @@ Ondersteuning voor Multi-Cloud: Tekton kan worden gebruikt in verschillende clou
 
 Schaalbaarheid en Betrouwbaarheid: Tekton is ontworpen voor schaalbaarheid en betrouwbaarheid, wat belangrijk is voor bedrijven die in productieomgevingen werken.
 
-## Taskruns en piperuns
-![Alt text](https://tekton.dev/docs/concepts/concept-runs.png)
+## Werking
+![](https://res.cloudinary.com/practicaldev/image/fetch/s--ro7n7uV8--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_880/https://jaruiz.io/images/tekton-argocd/pipeline-stages.png)
 
 ## Uitdagingen
 

@@ -19,7 +19,7 @@ spec:
             storage: 1Gi
   - name: git-credentials
     secret:
-      secretName: git-credentials
+      secretName: git-secret
   params:
   - name: repo-url
-    value: https://github.com/tektoncd/website
+    value: git@github.com:tektoncd/website.git
