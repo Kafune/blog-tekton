@@ -27,12 +27,9 @@ Stappen:
 - kubectl apply -f pipeline.yaml
 - kubectl create -f pipelinerun.yaml
 - tkn pipelinerun logs  clone-read-run-4kgjr -f
-```
 
-```
-Eigen workshop
-
-
+- Ergens ertussen nog secret genereren
+kubectl create secret generic ssh-secret --from-file=ssh-privatekey=C:\Users\Kachu\.ssh\id_rsa
 ```
 
 ## Wat is Tekton?
@@ -93,6 +90,8 @@ Dit maakt het mogelijk om flexibele CI/CD-pipelines te creëren en uit te voeren
 
 Tekton werkt door gebruik te maken van een reeks van Kubernetes-resources die samenwerken om CI/CD-pipelines te definiëren en uit te voeren. Hier zijn de belangrijkste concepten en stappen:
 
+## steps, tasks, pipelines
+
 Task (Taak):
 
 Een Task definieert een enkele eenheid van werk, zoals het bouwen van een container, uitvoeren van tests, of pushen van een image naar een container registry. Een Task is een op zichzelf staande entiteit die herbruikbaar is.
@@ -114,6 +113,8 @@ Een Trigger is een gebeurtenis die de start van een pipeline triggert. Dit kan b
 EventListener (EvenementLuisteraar):
 
 Een EventListener luistert naar triggers en start de bijbehorende pipeline op basis van het getriggerde evenement.
+![https://tekton.dev/docs/concepts/concept-model/](https://tekton.dev/docs/concepts/concept-tasks-pipelines.png)
+
 Samen zorgen deze concepten ervoor dat ontwikkelaars CI/CD-pipelines kunnen definiëren en uitvoeren binnen een Kubernetes-omgeving. Hier is een algemene workflow:
 
 Definieer taken: Ontwikkelaars definiëren herbruikbare taken die specifieke stappen van het CI/CD-proces uitvoeren, zoals bouwen, testen, implementeren, enz.
@@ -229,6 +230,9 @@ Uitgebreide Gemeenschap en Ecosysteem: Tekton heeft een actieve gemeenschap en w
 Ondersteuning voor Multi-Cloud: Tekton kan worden gebruikt in verschillende cloudomgevingen en is niet beperkt tot een specifiek cloudplatform.
 
 Schaalbaarheid en Betrouwbaarheid: Tekton is ontworpen voor schaalbaarheid en betrouwbaarheid, wat belangrijk is voor bedrijven die in productieomgevingen werken.
+
+## Taskruns en piperuns
+![Alt text](https://tekton.dev/docs/concepts/concept-runs.png)
 
 ## Uitdagingen
 

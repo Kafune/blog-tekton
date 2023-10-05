@@ -22,6 +22,7 @@ Andere developers die geïnteresseerd zijn in Tekton. Mijn doel is om de tool te
   - Onderzoeksmethoden
     - Literature study
     - SWOT Analysis
+    - Problem analysis
 - Welke stappen zijn betrokken bij het opzetten en configureren van een Tekton-pijplijn?
   - Onderzoeksmethoden
     - Literature study
