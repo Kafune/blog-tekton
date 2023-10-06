@@ -7,7 +7,6 @@
 Andere developers die geïnteresseerd zijn in Tekton. Mijn doel is om de tool te onderzoeken en hiervan de kennis te delen.
 
 ## Hoofdvraag
-
 - Hoe kan Tekton CI/CD effectief worden toegepast in het ontwikkelproces om de automatisering en efficiëntie van softwarelevering te verbeteren?
 
 ## Deelvragen
@@ -45,13 +44,7 @@ Andere developers die geïnteresseerd zijn in Tekton. Mijn doel is om de tool te
     - Literature study
     - Design pattern research
     - Best good and bad practices
-- Hoe kan Tekton worden gebruikt in combinatie met andere tools en technologieën zoals Kubernetes en Docker?
-  - Onderzoeksmethoden
-    - Prototyping
-    - Community research
-- Welke mogelijkheden biedt Tekton voor het implementeren van continue integratie en implementatie in een cloudomgeving?
-  - Onderzoeksmethoden
-    - Available product analysis
-- Wat zijn de mogelijke uitdagingen en oplossingen bij het implementeren van Tekton CI/CD in een ontwikkelteam?
+- Wat zijn de mogelijke uitdagingen bij het implementeren van Tekton CI/CD in een ontwikkelteam?
   - Onderzoeksmethoden
     - Community research
+    - 
