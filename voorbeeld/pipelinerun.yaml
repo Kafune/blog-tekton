@@ -22,4 +22,4 @@ spec:
       secretName: git-secret
   params:
   - name: repo-url
-    value: git@github.com:tektoncd/website.git
+    value: https://github.com/EdwinVW/pitstop.git
