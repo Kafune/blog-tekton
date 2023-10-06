@@ -8,7 +8,7 @@ Tekton speelt een cruciale rol als een open-source framework ontworpen voor het 
 
 ## Wat is Tekton?
 
-Tekton is een open-source framework dat wordt gebruikt voor het bouwen, testen en implementeren van cloud-native applicaties. Het is specifiek ontworpen om CI/CD (Continuous Integration/Continuous Deployment) pipelines te definiëren en uit te voeren in een Kubernetes-omgeving. Hierdoor kunnen ontwikkelaars via cloud providers zoals Kubernetes hun applicatie bouwen, testen en deployen (Tekton, z.d.).
+Tekton is een open-source framework dat cloud-native applicaties bouwt, test en implementeert. Het is specifiek ontworpen om CI/CD (Continuous Integration/Continuous Deployment) pipelines te definiëren en uit te voeren in een Kubernetes-omgeving. Hierdoor kunnen ontwikkelaars via cloud providers zoals Kubernetes hun applicatie bouwen, testen en deployen (Tekton, z.d.).
 
 Er zijn aardig wat overeenkomsten tussen andere CI/CD Tools. Het grootste verschil is dat Tekton vooral de nadruk op containerisatie zet. Daarom is Tekton op Kubernetes gebouwd. Tekton maakt en voert alle instanties van taken en pipelines uit op verschillende containers. Deze pipelines zijn van tevoren te configureren met YAML bestanden. Bij Gitlab CI/CD is er een voorgeconfigureerde Gitlab runner nodig om pipelines te kunnen draaien.  
 
@@ -32,11 +32,11 @@ Tekton werkt door gebruik te maken van een reeks van Kubernetes-resources die sa
 
 **PipelineRuns**: Toont alle instanties met de type *pipeline*.
 
-**Trigger:** Tekton kan worden geïntegreerd met triggersystemen, waardoor pipelines kunnen worden geactiveerd op basis van gebeurtenissen zoals codecommits, pull-aanvragen of andere gebeurtenissen in een versiebeheersysteem.
+**Trigger:** Het is mogelijk om Tekton te integreren met triggersystemen, waardoor pipelines af gaan op basis van gebeurtenissen zoals codecommits, pull-aanvragen of andere gebeurtenissen in een versiebeheersysteem. Dit gebeurt op basis van [Eventlisteners](https://tekton.dev/docs/triggers/eventlisteners/).
 
 **Workspaces:** Workspaces bieden een manier om gegevens tussen taken in een pipeline te delen. Ze stellen taken in staat om gegevens te schrijven naar en te lezen uit een gedeelde opslagplaats.
 
-Over het algemeen biedt Tekton een gestandaardiseerde manier om CI/CD-pipelines te definiëren en uit te voeren in een Kubernetes-omgeving. Het is ontworpen om eenvoudig te integreren met andere tools en systemen, waardoor het een populaire keuze is geworden voor teams die Kubernetes gebruiken voor containerorkestratie.
+Over het algemeen biedt Tekton een gestandaardiseerde manier om CI/CD-pipelines te definiëren en uit te voeren in een Kubernetes-omgeving. Het is ontworpen om eenvoudig te integreren met andere tools en systemen, waardoor Tekton een populaire keuze is voor teams die Kubernetes gebruiken voor containerorkestratie.
 
 ## Kenmerken en voordelen
 
@@ -45,7 +45,7 @@ Tekton maakt gebruik van YAML-bestanden om CI/CD-pipelines te definiëren. Dit m
 Ook brengt Tekton een aantal voordelen voor developers die CI/CD systemen bouwen:
 
 - Platformonafhankelijkheid: Tekton draait op Kubernetes als een set van [Kubernetes Custom Resource](https://kubernetes.io/docs/concepts/extend-kubernetes/api-extension/custom-resources/), waardoor Tekton niet afhankelijk is van een specifieke platform en los draait van andere Kubernetes resources (Cloud Native CI/CD with Tekton and ArgoCD on AWS | Amazon Web Services, 2022).
-- Native Kubernetes-integratie: Tekton is ontworpen om naadloos samen te werken met Kubernetes. Het maakt gebruik van Kubernetes-podspecs om taken uit te voeren, waardoor het eenvoudig kan worden geïntegreerd in bestaande Kubernetes-omgevingen [^1](https://platform9.com/blog/argo-cd-vs-tekton-vs-jenkins-x-finding-the-right-gitops-tooling/).
+- Native Kubernetes-integratie: Tekton is ontworpen om naadloos samen te werken met Kubernetes. Het maakt gebruik van Kubernetes-podspecs om taken uit te voeren, waardoor het eenvoudig te integreren is in bestaande Kubernetes-omgevingen [^1](https://platform9.com/blog/argo-cd-vs-tekton-vs-jenkins-x-finding-the-right-gitops-tooling/).
 - Declaratieve configuratie: Tekton maakt gebruik van YAML-bestanden voor het definiëren van pipelines, taken en resources. Dit zorgt voor een eenvoudige en begrijpelijke manier om CI/CD-pijplijnen te definiëren en te onderhouden. Het is hierdoor makkelijker om deze pipelines in verschillende projecten neer te zetten door de herbruikbaarheid als de configuratie op Git staat.
 - Schaalbaarheid: Door gebruik te maken van Kubernetes voor het orkestreren van taken, profiteert Tekton van de schaalbaarheid en betrouwbaarheid van het Kubernetes-platform. Hierdoor kunnen teams pipelines uitvoeren op een schaal die geschikt is voor hun project, bijvoorbeeld meerdere microservices met een of meerdere pipelines. Als er een vraag naar capaciteit is, is het zo simpel als meer nodes aan een Kubernetes cluster toevoegen. Het is dan niet nodig om de pipeline aan te passen omdat Tekton automatisch schaalt (Overview, 2023).
 - Uitbreidbaar. Via [Tekton Hub](https://hub.tekton.dev/) is het makkelijk om nieuwe pipelines te maken met voorgedefinieerde componenten of gebruik te maken van pipelines die anderen hebben gemaakt (Gravestijn, z.d.).
@@ -233,12 +233,12 @@ Aantal best practices bij het schrijven van Tasks en pipelines:
 
 - **Modulaire Pipelines**: Houd pipelines modulair door ze op te delen in kleinere taken en resources. Dit maakt het gemakkelijker om ze te begrijpen, onderhouden en hergebruiken.
 
-- **Gebruik van GitOps**: Beheer de declaratieve beschrijving van pipelines en resources in een Git-repository. Hierdoor kunnen wijzigingen gevolgd worden, kunnen ze gereviewd worden en kan versiebeheer worden toegepast.
+- **Gebruik van GitOps**: Beheer de declaratieve beschrijving van pipelines en resources in een Git-repository. Hierdoor is het mogelijk om alle wijzigingen te volgen, een review te plaatsen voor verbeteringen en het toepassen van versiebeheer.
 
 - **Logging en Tracing**: Implementeer logging en tracing in je pipelines. Dit helpt bij het oplossen van problemen en het identificeren van bottlenecks.
 
-- **Gebruik van Workspaces**: Workspaces bieden een manier om gegevens tussen stappen in een pipeline te delen. Zorg ervoor dat workspaces goed worden gebruikt om gegevens efficiënt door te geven.
-- **Beveiliging**: Zorg ervoor dat de nodige beveiligingsmaatregelen worden toegepast, zoals het beperken van de toegang tot resources, het gebruik van beveiligde verbindingen en het toepassen van de principes van de minste privileges.
+- **Gebruik van Workspaces**: Workspaces bieden een manier om gegevens tussen stappen in een pipeline te delen. Zorg ervoor dat workspaces gegevens efficiënt doorgeven.
+- **Beveiliging**: Zorg ervoor dat de nodige beveiligingsmaatregelen zijn toegepast, zoals het beperken van de toegang tot resources, het gebruik van beveiligde verbindingen en het toepassen van de principes van de minste privileges.
 - **Monitoring en Waarschuwingen**: Implementeer monitoring en waarschuwingen om de status van je pipelines te bewaken en op de hoogte te blijven van eventuele problemen.
 
 ## Uitdagingen
