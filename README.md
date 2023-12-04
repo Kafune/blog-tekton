@@ -2,9 +2,25 @@
 
 <img src="https://tekton.dev/images/tekton-horizontal-color.png" width="200>" align="right">
 
-Dit blog is geschreven om inzicht te geven op een DevOps tool voor de DevOps minor. In dit geval gaat het over Tekton CI/CD. Het doel van deze blog is om ontwikkelaars kennis te laten maken met Tekton. Het is sterk aangeraden om al kennis te hebben van Kubernetes en Linux om commando's uit te voeren in de pipelines. Kennis van andere CI/CD systemen is een pré.
+Dit blog is geschreven om inzicht te geven op een DevOps tool voor de DevOps minor. In dit geval gaat het over Tekton CI/CD. Het doel van deze blog is om ontwikkelaars kennis te laten maken met Tekton. Het is sterk aangeraden om al kennis te hebben van Kubernetes en Linux om commando's uit te voeren in de pipelines. Kennis van andere CI/CD systemen is een pré. Dit helpt wel om de concepten van CI/CD systemen en pipelines te begrijpen.
 
-Tekton speelt een cruciale rol als een open-source framework ontworpen voor het bouwen, testen en implementeren van moderne applicaties. Specifiek gericht op Continuous Integration/Continuous Deployment (CI/CD) pipelines binnen een Kubernetes-omgeving, biedt Tekton een gestandaardiseerde en krachtige oplossing.
+Eerst volgt er een algemene introductie voor Tekton CI/CD. Hierin beschrijf ik wat CI/CD systemen inhoudt om Tekton beter te begrijpen. Daarna komt er een beschrijving van wat Tekton CI/CD is en hoe het werkt. Hierbij ga ik wat dieper in het ecosysteem en kenmerken door verschillende termen te beschrijven om het systeem zo helder mogelijk te krijgen.
+
+Dan bekijk ik wat voor sterke en zwakke punten er zijn bij het gebruik van Tekton. Daarna volgt er een demo voor Tekton waarbij ik laat zien hoe de Readme uit een bepaalde Repository te lezen is. Vervolgens beschrijf ik een aantal uitdagingen die er zijn om Tekton te kunnen implementeren. Als laatst volgt er een conclusie waarbij ik het blogpost samenvat, en mijn mening over Tekton beschrijf.
+
+## CI/CD Systemen
+
+CI/CD staan voor respectievelijk Continuous Integration en Continuous Deployment. Met deze twee termen hebben we het over een meer gestroomlijnde en geautomatiseerde werkwijze(BRON)
+
+<https://www.workingtalent.nl/continuous-integration-continuous-deployment>
+<!-- 
+CI/CD (Continuous Integration/Continuous Delivery) is het fundament van moderne softwareontwikkeling.
+
+CI: Ontwikkelaars integreren regelmatig code in een gedeelde repository, waarna automatische tests de code controleren op fouten.
+
+CD: Na succesvolle integratie wordt de code automatisch beschikbaar gemaakt voor implementatie. Dit versnelt het ontwikkelproces en verbetert de codekwaliteit.
+
+Tekton, als onderdeel van dit proces, biedt een framework om CI/CD-pipelines te definiëren en uit te voeren. Het stelt ontwikkelaars in staat om op efficiënte wijze software te bouwen, testen en implementeren. -->
 
 ## Wat is Tekton?
 
@@ -14,9 +30,9 @@ Er zijn aardig wat overeenkomsten tussen andere CI/CD Tools. Het grootste versch
 
 ## Hoe werkt tekton?
 
-Tekton werkt door gebruik te maken van een reeks van Kubernetes-resources die samenwerken om CI/CD-pipelines te definiëren en uit te voeren. Hierdoor is het makkelijker om Tekton met een bestaande Kubernetes infrastructuur te integreren (Amir, 2023). De belangrijkste kenmerken hierbij zijn:
+Tekton maakt gebruik van een reeks van Kubernetes-resources die samenwerken om CI/CD-pipelines te definiëren en uit te voeren. Hierdoor is het makkelijker om Tekton met een bestaande Kubernetes infrastructuur te integreren (Amir, 2023). De belangrijkste kenmerken hierbij zijn:
 ![https://tekton.dev/docs/concepts/concept-model/](https://tekton.dev/docs/concepts/concept-tasks-pipelines.png)
-**Figuur 2: Een Taskrun dat meerdere tasks bevat in een pipeline**
+**Figuur 1: Een Taskrun dat meerdere tasks bevat in een pipeline**
 
 **Resources:** Tekton maakt gebruik van resources om input- en outputgegevens van een pipeline te beheren. Dit kunnen bijvoorbeeld broncode-repositories, container-images, configuratiebestanden of andere artefacten zijn.
 
@@ -26,7 +42,7 @@ Tekton werkt door gebruik te maken van een reeks van Kubernetes-resources die sa
 
 **Pipeline:** Een pipeline in Tekton bestaat uit een collectie *tasks* die Tekton op een bepaalde volgorde uitvoert. Hiermee kunnen ontwikkelaars complexe workflows definiëren die bestaan uit meerdere taken.
 
-![Voorbeelden toepassing pipeline](https://tekton.dev/docs/concepts/concept-runs.png)**Figuur 3: Voorbeeld van een Pipelinerun dat op een bepaalde trigger draait**
+![Voorbeelden toepassing pipeline](https://tekton.dev/docs/concepts/concept-runs.png)**Figuur 2: Voorbeeld van een Pipelinerun dat op een bepaalde trigger draait**
 
 **TaskRuns**: Toont alle instanties met de type *task*
 
@@ -54,7 +70,7 @@ Ook brengt Tekton een aantal voordelen voor developers die CI/CD systemen bouwen
 
 ## Uitlezen README van Pitstop met Tekton
 
-Voor een praktisch voorbeeld gaan we de [{itstop](https://github.com/EdwinVW/pitstop) clonen en de Readme bestand daarvan uitlezen met de [Cat](https://www.geeksforgeeks.org/cat-command-in-linux-with-examples/) commando.
+Voor een praktisch voorbeeld gaan we de [{itstop](https://github.com/EdwinVW/pitstop) clonen en de Readme bestand daarvan uitlezen met de [Cat](https://www.geeksforgeeks.org/cat-command-in-linux-with-examples/) commando. TODO: Beschrijven waarom ik dit doe. Voornamelijk om aan te tonen dat het pullen van een repo mogelijk is.
 
 Minimale Vooreisen:
 
@@ -227,20 +243,6 @@ tkn pipelinerun logs  clone-read-run-ttfln -f
 ```
 ![Alt text](images/readme-pipeline.png)
 
-## Best practices
-
-Aantal best practices bij het schrijven van Tasks en pipelines:
-
-- **Modulaire Pipelines**: Houd pipelines modulair door ze op te delen in kleinere taken en resources. Dit maakt het gemakkelijker om ze te begrijpen, onderhouden en hergebruiken.
-
-- **Gebruik van GitOps**: Beheer de declaratieve beschrijving van pipelines en resources in een Git-repository. Hierdoor is het mogelijk om alle wijzigingen te volgen, een review te plaatsen voor verbeteringen en het toepassen van versiebeheer.
-
-- **Logging en Tracing**: Implementeer logging en tracing in je pipelines. Dit helpt bij het oplossen van problemen en het identificeren van bottlenecks.
-
-- **Gebruik van Workspaces**: Workspaces bieden een manier om gegevens tussen stappen in een pipeline te delen. Zorg ervoor dat workspaces gegevens efficiënt doorgeven.
-- **Beveiliging**: Zorg ervoor dat de nodige beveiligingsmaatregelen zijn toegepast, zoals het beperken van de toegang tot resources, het gebruik van beveiligde verbindingen en het toepassen van de principes van de minste privileges.
-- **Monitoring en Waarschuwingen**: Implementeer monitoring en waarschuwingen om de status van je pipelines te bewaken en op de hoogte te blijven van eventuele problemen.
-
 ## Uitdagingen
 
 Het implementeren van Tekton CI/CD in een ontwikkelteam kan veel voordelen bieden, zoals gestroomlijnde en geautomatiseerde deployment pipelines. Echter, net zoals bij elke nieuwe technologie, zijn er ook uitdagingen die kunnen optreden. Hier zijn enkele mogelijke uitdagingen en oplossingen bij het implementeren van Tekton CI/CD:
@@ -261,16 +263,19 @@ Tekton biedt een gestandaardiseerde en flexibele oplossing voor CI/CD binnen Kub
 
 ## Bronnen
 
-*ChatGPT.* (z.d.). OpenAI. <https://chat.openai.com/>
+TODO: Bronnen checken chatgpt en tekton
+TODO: tekst in bronnen checken
+
+*ChatGPT.* (z.d.). OpenAI. Geraagdpleegd op 05 augustus 2023, van <https://chat.openai.com/>
 
 *Tekton.* (z.d.). Tekton. <https://tekton.dev/>
 
-Amir, R. (2023, 21 juni). GitHub Actions vs Bitbucket Pipelines vs GitLab CI vs Tekton: The best CI/CD tool for you? Stakater. <https://www.stakater.com/post/github-actions-vs-bitbucket-pipelines-vs-gitlab-ci-vs-tekton-bestcicdtool>
+Amir, R. (2023, 21 juni). *GitHub Actions vs Bitbucket Pipelines vs GitLab CI vs Tekton: The best CI/CD tool for you?* Stakater. Geraadpleegd op 05 augustus 2023, van <https://www.stakater.com/post/github-actions-vs-bitbucket-pipelines-vs-gitlab-ci-vs-tekton-bestcicdtool>
 
-Piotr.Minkowski. (2021, 5 augustus). Kubernetes CI/CD with Tekton and ArgoCD - Piotr's TechBlog. Piotr’s TechBlog. <https://piotrminkowski.com/2021/08/05/kubernetes-ci-cd-with-tekton-and-argocd/>
+Piotr.Minkowski. (2021, 5 augustus). *Kubernetes CI/CD with Tekton and ArgoCD - Piotr's TechBlog.* Piotr’s TechBlog. Geraadpleegd op 05 augustus 2023, van <https://piotrminkowski.com/2021/08/05/kubernetes-ci-cd-with-tekton-and-argocd/>
 
 *Overview.* (2023, 9 maart). Tekton. <https://tekton.dev/docs/concepts/overview/>
 
-Gravestijn, T. (z.d.). Tekton. <https://www.hcs-company.com/blog/tekton>
+Gravestijn, T. (2021, 27 oktober). *Tekton – De manier om cloud native CI/CD pipelines op te zetten.* HCS Company. Geraadpleegd op 05 augustus 2023, van <https://www.hcs-company.com/blog/tekton>
 
-*Cloud Native CI/CD with Tekton and ArgoCD on AWS | Amazon Web Services.* (2022, 25 januari). Amazon Web Services. <https://aws.amazon.com/blogs/containers/cloud-native-ci-cd-with-tekton-and-argocd-on-aws/#:~:text=Tekton%20is%20an%20open%2Dsource,natively%20on%20top%20of%20Kubernetes>
+*Cloud Native CI/CD with Tekton and ArgoCD on AWS | Amazon Web Services.* (2022, 25 januari). Amazon Web Services. Geraadpleegd op 05 augustus 2023, van <https://aws.amazon.com/blogs/containers/cloud-native-ci-cd-with-tekton-and-argocd-on-aws/#:~:text=Tekton%20is%20an%20open%2Dsource,natively%20on%20top%20of%20Kubernetes>
