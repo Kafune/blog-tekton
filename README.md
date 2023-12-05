@@ -20,9 +20,9 @@ Beide processen zijn belangrijk om software snel op te kunnen leveren met zo min
 
 De pipeline is vaak te configureren d.m.v. een YAML bestand. Een pipeline gaat alleen af door een bepaalde trigger. Denk bijvoorbeeld hierbij aan wanneer een ontwikkelaar een push van code naar het versiebeersysteem doet. Een pipeline bestaat vaak uit een aantal stages of fases, zoals het bouwen, testen en releasen van een applicatie. Dit soort fases zijn in de afbeelding gedefinieerd als een stage. Elk stage bevat een agent, wat ook bekend is als een image, bijvoorbeeld een Ubuntu-image. De pipeline heeft een kleine virtuele omgeving waar de applicatie op Ubuntu draait voor een specifieke stage. Zodra de pipeline doorgaat naar de volgende stage, kan er zomaar een ander agent draaien (BRON: https://learn.microsoft.com/nl-nl/azure/devops/pipelines/get-started/key-pipelines-concepts?view=azure-devops).
 
-Als laatst komen de stappen (steps in de afbeelding). Dit zijn vooral de commando's die de pipeline uitvoert. Denk hierbij aan command line commando's zoals het bouwen van een bepaalde applicatie, of het uitvoeren van een test. Ook kan de pipeline bepaalde scripts uitvoeren. Hiervoor is het handig om kennis van Linux te hebben.
+Als laatst komen de stappen (steps in de afbeelding). Dit zijn vooral de commando's die de pipeline uitvoert. Denk hierbij aan command line commando's zoals het bouwen van een bepaalde applicatie, of het uitvoeren van een test. Ook kan de pipeline taken zoals bepaalde scripts uitvoeren. In het afbeelding gaat dit bijvoorbeeld om het aanroepen van een API, of het deployen van een applicatie. Hiervoor is het handig om kennis van Linux te hebben.
 
-Nu dat de werking van het CI/CD systemen d.m.v. pipelines en een aantal termen zijn beschreven, is het mogelijk om het over Tekton te hebben.
+Nu dat de werking van het CI/CD systemen d.m.v. pipelines en een aantal termen zijn beschreven, is het makkelijker om het over Tekton te hebben.
 
 ## Wat is Tekton?
 
@@ -32,23 +32,26 @@ Er zijn aardig wat overeenkomsten tussen andere CI/CD Tools. Het grootste versch
 
 ## Hoe werkt tekton?
 
-Tekton maakt gebruik van een reeks van Kubernetes-resources die samenwerken om CI/CD-pipelines te definiëren en uit te voeren. Hierdoor is het makkelijker om Tekton met een bestaande Kubernetes infrastructuur te integreren (Amir, 2023). De belangrijkste kenmerken hierbij zijn:
+Tekton maakt gebruik van een reeks van Kubernetes-resources die samenwerken om CI/CD-pipelines te definiëren en uit te voeren. Hierdoor is het makkelijker om Tekton met een bestaande Kubernetes infrastructuur te integreren (Amir, 2023). Veel termen zijn al beschreven in het hoofdstuk [CI/CD Systemen](#cicd-systemen). Toch zijn er een aantal verschillen binnen Tekton.
+
+
 ![https://tekton.dev/docs/concepts/concept-model/](https://tekton.dev/docs/concepts/concept-tasks-pipelines.png)
-**Figuur 1: Een Taskrun dat meerdere tasks bevat in een pipeline**
+
+**Figuur 1: Een Taskrun dat meerdere tasks bevat in een pipeline** TODO: BETER UITLEGGEN.
 
 **Resources:** Tekton maakt gebruik van resources om input- en outputgegevens van een pipeline te beheren. Dit kunnen bijvoorbeeld broncode-repositories, container-images, configuratiebestanden of andere artefacten zijn.
 
-**Steps**: Een step is een uitvoering van een commando in CI/CD, zoals het uitvoeren van unit tests, of het implementeren van een applicatie. Tekton voert elke stap uit met een Docker container image (Overview, 2023).
+**Steps**: Een step is een uitvoering van een commando in CI/CD, zoals het uitvoeren van unit tests, of het implementeren van een applicatie. Tekton voert elke stap uit met een Docker container image (BRON fixen: OVERVIEW, 2023).
 
-**Tasks:** Een taak bestaat uit een collectie van *steps*. Het is een geautomatiseerde stap die specifieke acties uitvoert, zoals het bouwen van een containerimage, het uitvoeren van tests of. In Gitlab is dit vergelijkbaar met de script annotatie.
+**Tasks:** Een taak bestaat uit een collectie van *steps*. Het is een geautomatiseerde stap die specifieke acties uitvoert, zoals het bouwen van een containerimage of het deployen van een applicatie.
 
 **Pipeline:** Een pipeline in Tekton bestaat uit een collectie *tasks* die Tekton op een bepaalde volgorde uitvoert. Hiermee kunnen ontwikkelaars complexe workflows definiëren die bestaan uit meerdere taken.
 
 ![Voorbeelden toepassing pipeline](https://tekton.dev/docs/concepts/concept-runs.png)**Figuur 2: Voorbeeld van een Pipelinerun dat op een bepaalde trigger draait**
 
-**TaskRuns**: Toont alle instanties met de type *task*
+**TaskRuns**: 
 
-**PipelineRuns**: Toont alle instanties met de type *pipeline*.
+**PipelineRuns**: 
 
 **Trigger:** Het is mogelijk om Tekton te integreren met triggersystemen, waardoor pipelines af gaan op basis van gebeurtenissen zoals codecommits, pull-aanvragen of andere gebeurtenissen in een versiebeheersysteem. Dit gebeurt op basis van [Eventlisteners](https://tekton.dev/docs/triggers/eventlisteners/).
 
@@ -70,9 +73,11 @@ Ook brengt Tekton een aantal voordelen voor developers die CI/CD systemen bouwen
 - Combinatie ArgoCD: Waar Tekton voor het hele development zorgt, zoals het bouwen van de applicatie tot het pushen naar een git repository, kan ArgoCD met de Git repo een nieuwe Kubernetes cluster uitrollen (Piotr.Minkowski, 2021).
 ![Werking Tekton & ArgoCD](https://i0.wp.com/piotrminkowski.com/wp-content/uploads/2021/08/tekton-argocd-kubernetes.png?resize=1024%2C362&ssl=1) **Figuur 3: Tekton en ArgoCD gecombineerd**
 
+OVERDRACHT NAAR DEMO!
+
 ## Uitlezen README van Pitstop met Tekton
 
-Voor een praktisch voorbeeld gaan we de [{itstop](https://github.com/EdwinVW/pitstop) clonen en de Readme bestand daarvan uitlezen met de [Cat](https://www.geeksforgeeks.org/cat-command-in-linux-with-examples/) commando. TODO: Beschrijven waarom ik dit doe. Voornamelijk om aan te tonen dat het pullen van een repo mogelijk is.
+Voor een praktisch voorbeeld gaan we de [Pitstop](https://github.com/EdwinVW/pitstop) clonen en de Readme bestand daarvan uitlezen met de [Cat](https://www.geeksforgeeks.org/cat-command-in-linux-with-examples/) commando. TODO: Beschrijven waarom ik dit doe. Voornamelijk om aan te tonen dat het pullen van een repo mogelijk is.
 
 Minimale Vooreisen:
 
