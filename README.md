@@ -6,21 +6,23 @@ Dit blog is geschreven om inzicht te geven op een DevOps tool voor de DevOps min
 
 Eerst volgt er een algemene introductie voor Tekton CI/CD. Hierin beschrijf ik wat CI/CD systemen inhoudt om Tekton beter te begrijpen. Daarna komt er een beschrijving van wat Tekton CI/CD is en hoe het werkt. Hierbij ga ik wat dieper in het ecosysteem en kenmerken door verschillende termen te beschrijven om het systeem zo helder mogelijk te krijgen.
 
-Dan bekijk ik wat voor sterke en zwakke punten er zijn bij het gebruik van Tekton. Daarna volgt er een demo voor Tekton waarbij ik laat zien hoe de Readme uit een bepaalde Repository te lezen is. Vervolgens beschrijf ik een aantal uitdagingen die er zijn om Tekton te kunnen implementeren. Als laatst volgt er een conclusie waarbij ik het blogpost samenvat, en mijn mening over Tekton beschrijf.
+Dan bekijk ik wat voor sterke en zwakke punten er zijn bij het gebruik van Tekton. Daarna volgt er een demo voor Tekton waarbij ik laat zien hoe de Readme uit een bepaalde Repository te lezen is. Vervolgens beschrijf ik een aantal uitdagingen die er zijn om Tekton te kunnen implementeren. Als laatst volgt er een conclusie waarbij ik samenvat wat er in de blog is beschreven, en geef ik mijn mening over Tekton.
 
 ## CI/CD Systemen
 
-CI/CD staan voor respectievelijk Continuous Integration en Continuous Deployment. Met deze twee termen hebben we het over een meer gestroomlijnde en geautomatiseerde werkwijze(BRON)
+CI/CD staan voor respectievelijk Continuous Integration en Continuous Deployment. Continuous integration code houdt in dat ontwikkelaars regelmatig hun code integreren in een gedeelde repository. Het testen van de code gaat vaak automatisch via een pipeline d.m.v. automatische tests, waardoor eventuele conflicten of fouten vroegtijdig worden ontdekt en opgelost.
+Continuous Deployment bouwt hier verder op in door de code na het automatisch testen, via de pipeline direct te deployen op de productieomgeving. Dit betekent dat wijzigingen vaak snel plaatsvinden (BRON:https://www.workingtalent.nl/continuous-integration-continuous-deployment).
 
-<https://www.workingtalent.nl/continuous-integration-continuous-deployment>
-<!-- 
-CI/CD (Continuous Integration/Continuous Delivery) is het fundament van moderne softwareontwikkeling.
+Beide processen zijn belangrijk om software snel op te kunnen leveren met zo min mogelijke fouten en conflicten. Door constant te controleren hierop, is het makkelijker voor ontwikkelaars om samen te werken. Een aantal voorbeelden van CI/CD systemen zijn [Gitlab CI/CD](https://docs.gitlab.com/ee/ci/), [Github Actions](https://github.com/features/actions) of [Azure DevOps](https://azure.microsoft.com/nl-nl/products/devops).
 
-CI: Ontwikkelaars integreren regelmatig code in een gedeelde repository, waarna automatische tests de code controleren op fouten.
+![Werking van een pipeline](https://learn.microsoft.com/nl-nl/azure/devops/pipelines/get-started/media/key-concepts-overview.svg?view=azure-devops)
+**Figuur 1: Het werking van een algemene pipeline dat meerdere tasks bevat in een pipeline**
 
-CD: Na succesvolle integratie wordt de code automatisch beschikbaar gemaakt voor implementatie. Dit versnelt het ontwikkelproces en verbetert de codekwaliteit.
+De pipeline is vaak te configureren d.m.v. een YAML bestand. Een pipeline gaat alleen af door een bepaalde trigger. Denk bijvoorbeeld hierbij aan wanneer een ontwikkelaar een push van code naar het versiebeersysteem doet. Een pipeline bestaat vaak uit een aantal stages of fases, zoals het bouwen, testen en releasen van een applicatie. Dit soort fases zijn in de afbeelding gedefinieerd als een stage. Elk stage bevat een agent, wat ook bekend is als een image, bijvoorbeeld een Ubuntu-image. De pipeline heeft een kleine virtuele omgeving waar de applicatie op Ubuntu draait voor een specifieke stage. Zodra de pipeline doorgaat naar de volgende stage, kan er zomaar een ander agent draaien (BRON: https://learn.microsoft.com/nl-nl/azure/devops/pipelines/get-started/key-pipelines-concepts?view=azure-devops).
 
-Tekton, als onderdeel van dit proces, biedt een framework om CI/CD-pipelines te definiëren en uit te voeren. Het stelt ontwikkelaars in staat om op efficiënte wijze software te bouwen, testen en implementeren. -->
+Als laatst komen de stappen (steps in de afbeelding). Dit zijn vooral de commando's die de pipeline uitvoert. Denk hierbij aan command line commando's zoals het bouwen van een bepaalde applicatie, of het uitvoeren van een test. Ook kan de pipeline bepaalde scripts uitvoeren. Hiervoor is het handig om kennis van Linux te hebben.
+
+Nu dat de werking van het CI/CD systemen d.m.v. pipelines en een aantal termen zijn beschreven, is het mogelijk om het over Tekton te hebben.
 
 ## Wat is Tekton?
 
