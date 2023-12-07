@@ -16,7 +16,7 @@ Continuous Deployment bouwt hier verder op in door de code na het automatisch te
 Beide processen zijn belangrijk om software snel op te kunnen leveren met zo min mogelijke fouten en conflicten. Door constant te controleren hierop, is het makkelijker voor ontwikkelaars om samen te werken. Een aantal voorbeelden van CI/CD systemen zijn [Gitlab CI/CD](https://docs.gitlab.com/ee/ci/), [Github Actions](https://github.com/features/actions) of [Azure DevOps](https://azure.microsoft.com/nl-nl/products/devops).
 
 ![Werking van een pipeline](https://learn.microsoft.com/nl-nl/azure/devops/pipelines/get-started/media/key-concepts-overview.svg?view=azure-devops)
-**Figuur 1: Het werking van een algemene pipeline dat meerdere tasks bevat in een pipeline**
+**Figuur 1: Het werking van een algemene pipeline dat meerdere tasks bevat in een pipeline** TODO: BRONVERMELDING
 
 De pipeline is vaak te configureren d.m.v. een YAML bestand. Een pipeline gaat alleen af door een bepaalde trigger. Denk bijvoorbeeld hierbij aan wanneer een ontwikkelaar een push van code naar het versiebeersysteem doet. Een pipeline bestaat vaak uit een aantal stages of fases, zoals het bouwen, testen en releasen van een applicatie. Dit soort fases zijn in de afbeelding gedefinieerd als een stage. Elk stage bevat een agent, wat ook bekend is als een image, bijvoorbeeld een Ubuntu-image. De pipeline heeft een kleine virtuele omgeving waar de applicatie op Ubuntu draait voor een specifieke stage. Zodra de pipeline doorgaat naar de volgende stage, kan er zomaar een ander agent draaien (BRON: https://learn.microsoft.com/nl-nl/azure/devops/pipelines/get-started/key-pipelines-concepts?view=azure-devops).
 
@@ -30,7 +30,7 @@ Tekton is een open-source framework dat cloud-native applicaties bouwt, test en 
 
 Er zijn aardig wat overeenkomsten tussen andere CI/CD Tools. Het grootste verschil is dat Tekton vooral de nadruk op containerisatie zet. Daarom is Tekton op Kubernetes gebouwd. Tekton maakt en voert alle instanties van taken en pipelines uit op verschillende containers. Deze pipelines zijn van tevoren te configureren met YAML bestanden. Bij Gitlab CI/CD is er een voorgeconfigureerde Gitlab runner nodig om pipelines te kunnen draaien.  
 
-## Hoe werkt tekton?
+## Hoe werkt Tekton?
 
 Tekton maakt gebruik van een reeks van Kubernetes-resources die samenwerken om CI/CD-pipelines te definiëren en uit te voeren. Hierdoor is het makkelijker om Tekton met een bestaande Kubernetes infrastructuur te integreren (Amir, 2023). Veel termen zijn al beschreven in het hoofdstuk [CI/CD Systemen](#cicd-systemen). Tekton heeft in het ecosysteem ook zijn eigen termen. Hieronder deel ik de termen op door termen die we al tegengekomen zijn en termen die vooral voor Tekton relevant zijn.
 
@@ -47,7 +47,7 @@ Tekton maakt gebruik van een reeks van Kubernetes-resources die samenwerken om C
 ### Nieuwe termen binnen Tekton
 
 ![https://tekton.dev/docs/concepts/concept-model/](https://tekton.dev/docs/concepts/concept-tasks-pipelines.png)
-**Figuur 1: Een Taskrun die meerdere tasks bevat in een pipeline**
+**Figuur 2: Een Taskrun die meerdere tasks bevat in een pipeline** TODO: BRONVERMELDING
 
 **Resources:** Tekton maakt gebruik van resources om input- en outputgegevens van een pipeline te beheren. Dit kunnen bijvoorbeeld broncode-repositories, container-images, configuratiebestanden of andere artefacten zijn.
 
@@ -239,6 +239,7 @@ kubectl create -f pipelinerun.yaml
 
 Er komt een pipelinerun terug met een unieke naam.
 ![Alt text](images/image.png)
+FIGUUR 3 GEEN BRON
 
 10.Het is nu mogelijk om de logs van de Pipeline run te bekijken. Als het goed is komt hier de Readme van Pitstop terug.
 
