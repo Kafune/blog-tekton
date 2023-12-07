@@ -66,17 +66,17 @@ Tekton maakt gebruik van YAML-bestanden om CI/CD-pipelines te definiëren. Dit m
 
 Ook brengt Tekton een aantal voordelen voor developers die CI/CD systemen bouwen:
 
-- Platformonafhankelijkheid: Tekton draait op Kubernetes als een set van [Kubernetes Custom Resource](https://kubernetes.io/docs/concepts/extend-kubernetes/api-extension/custom-resources/), waardoor Tekton niet afhankelijk is van een specifiek platform en los draait van andere Kubernetes resources (Cloud Native CI/CD with Tekton and ArgoCD on AWS | Amazon Web Services, 2022).
-- Native Kubernetes-integratie: Tekton is ontworpen om naadloos samen te werken met Kubernetes. Het maakt gebruik van Kubernetes-podspecs om taken uit te voeren, waardoor het eenvoudig te integreren is in bestaande Kubernetes-omgevingen [BRON FIXEN](https://platform9.com/blog/argo-cd-vs-tekton-vs-jenkins-x-finding-the-right-gitops-tooling/).
-- Declaratieve configuratie: Tekton maakt gebruik van YAML-bestanden voor het definiëren van pipelines, taken en resources. Dit zorgt voor een eenvoudige en begrijpelijke manier om CI/CD-pijplijnen te definiëren en te onderhouden. Het is hierdoor makkelijker om deze pipelines in verschillende projecten neer te zetten door de herbruikbaarheid als de configuratie op Git staat.
-- Schaalbaarheid: Door gebruik te maken van Kubernetes voor het orkestreren van taken, profiteert Tekton van de schaalbaarheid en betrouwbaarheid van het Kubernetes-platform. Hierdoor kunnen teams pipelines uitvoeren op een schaal die geschikt is voor hun project, bijvoorbeeld meerdere microservices met een of meerdere pipelines. Als er een vraag naar capaciteit is, is het zo simpel als meer nodes aan een Kubernetes cluster toevoegen. Het is dan niet nodig om de pipeline aan te passen omdat Tekton automatisch schaalt (Overview, 2023).
-- Uitbreidbaar. Via [Tekton Hub](https://hub.tekton.dev/) is het makkelijk om nieuwe pipelines te maken met voorgedefinieerde componenten of gebruik te maken van pipelines die anderen hebben gemaakt (Gravestijn, z.d.).
-- Combinatie ArgoCD: Waar Tekton voor het hele development zorgt, zoals het bouwen van de applicatie tot het pushen naar een git repository, kan ArgoCD met de Git repo een nieuwe Kubernetes cluster uitrollen (Piotr.Minkowski, 2021).
+- **Platformonafhankelijkheid**: Tekton draait op Kubernetes als een set van [Kubernetes Custom Resource](https://kubernetes.io/docs/concepts/extend-kubernetes/api-extension/custom-resources/), waardoor Tekton niet afhankelijk is van een specifiek platform en los draait van andere Kubernetes resources (Cloud Native CI/CD with Tekton and ArgoCD on AWS | Amazon Web Services, 2022).
+- **Native Kubernetes-integratie**: Tekton is ontworpen om naadloos samen te werken met Kubernetes. Het maakt gebruik van Kubernetes-podspecs om taken uit te voeren, waardoor het eenvoudig te integreren is in bestaande Kubernetes-omgevingen [BRON FIXEN](https://platform9.com/blog/argo-cd-vs-tekton-vs-jenkins-x-finding-the-right-gitops-tooling/).
+- **Declaratieve configuratie**: Tekton maakt gebruik van YAML-bestanden voor het definiëren van pipelines, taken en resources. Dit zorgt voor een eenvoudige en begrijpelijke manier om CI/CD-pijplijnen te definiëren en te onderhouden. Het is hierdoor makkelijker om deze pipelines in verschillende projecten neer te zetten door de herbruikbaarheid als de configuratie op Git staat.
+- **Schaalbaarheid**: Door gebruik te maken van Kubernetes voor het orkestreren van taken, profiteert Tekton van de schaalbaarheid en betrouwbaarheid van het Kubernetes-platform. Hierdoor kunnen teams pipelines uitvoeren op een schaal die geschikt is voor hun project, bijvoorbeeld meerdere microservices met een of meerdere pipelines. Als er een vraag naar capaciteit is, is het zo simpel als meer nodes aan een Kubernetes cluster toevoegen. Het is dan niet nodig om de pipeline aan te passen omdat Tekton automatisch schaalt (Overview, 2023).
+- **Uitbreidbaar**: Via [Tekton Hub](https://hub.tekton.dev/) is het makkelijk om nieuwe pipelines te maken met voorgedefinieerde componenten of gebruik te maken van pipelines die anderen hebben gemaakt (Gravestijn, z.d.).
+- **Combinatie ArgoCD**: Waar Tekton voor het hele development zorgt, zoals het bouwen van de applicatie tot het pushen naar een git repository, kan ArgoCD met de Git repo een nieuwe Kubernetes cluster uitrollen (Piotr.Minkowski, 2021). Dit is terug te zien in figuur 3.
 ![Werking Tekton & ArgoCD](https://i0.wp.com/piotrminkowski.com/wp-content/uploads/2021/08/tekton-argocd-kubernetes.png?resize=1024%2C362&ssl=1) **Figuur 3: Tekton en ArgoCD gecombineerd**
 
 ## Uitlezen README van Pitstop met Tekton
 
-Voor een praktisch voorbeeld gaan we de [Pitstop](https://github.com/EdwinVW/pitstop) clonen en de Readme bestand daarvan uitlezen met de [Cat](https://www.geeksforgeeks.org/cat-command-in-linux-with-examples/) commando. In het praktijk heeft dit vaak niet zoveel toegevoegde waarde. Echter is het goed om te weten of het clonen van een repository gelukt is, en dit is één van de manieren om het te bereiken. Het clonen van een repository is vaak de eerste stap binnen een CI/CD die een ontwikkelaar uitvoert binnen een pipeline, zodat de pipeline o.a. de applicatie zelf kan bouwen.
+Voor een praktisch voorbeeld gaan we de [Pitstop](https://github.com/EdwinVW/pitstop) clonen en de Readme bestand daarvan uitlezen met de [Cat](https://www.geeksforgeeks.org/cat-command-in-linux-with-examples/) commando. In het praktijk heeft dit vaak niet zoveel toegevoegde waarde. Echter is het goed om te weten of het clonen van een repository gelukt is. Dit is één van de manieren om het te bereiken. Het clonen van een repository is vaak de eerste stap binnen een CI/CD die een ontwikkelaar uitvoert binnen een pipeline, zodat de pipeline o.a. de applicatie zelf kan bouwen en eventueel een Docker Image beschikbaar kan stellen.
 
 Minimale vooreisen om de demo uit te kunnen voeren:
 
@@ -102,9 +102,9 @@ Kubernetes is nu beschikbaar op de lokale machine
 kubectl apply --filename https://storage.googleapis.com/tekton-releases/pipeline/latest/release.yaml
 ```
 
-Nu zijn er allerlei [Tekton componenten](https://tekton.dev/docs/concepts/overview/#what-are-the-components-of-tekton) geinstalleerd, waarbij het mogelijk is om gebruik te maken van Tekton.
+Nu zijn er allerlei [Tekton componenten](https://tekton.dev/docs/concepts/overview/#what-are-the-components-of-tekton) geinstalleerd, waarbij het mogelijk is om gebruik te maken van het ecosysteem van Tekton.
 
-2.Maak een nieuwe bestand aan die de pipeline definieerd, genaamd `pipeline.yaml`. Het is handiger om dit in een aparte folder te doen dan in de root.
+2.Maak een nieuwe bestand aan die de pipeline definieert, genaamd `pipeline.yaml`. Het is handiger om dit in een ander folder te doen dan in de root.
 
 3.Voeg in `pipeline.yaml` het volgende toe:
 
@@ -180,9 +180,7 @@ spec:
     value: https://github.com/EdwinVW/pitstop.git
 ```
 
-TODO: verbinding met SSH (service accounts)
-
-5a.*Optioneel*: Maak gebruik van SSH om Pitstop te clonen. Hierbij is het gebruik van [Kubernetes Secrets](https://kubernetes.io/docs/concepts/configuration/secret/) nodig.
+5a.*Optioneel*: Maak gebruik van SSH om Pitstop te clonen. Hierbij is het gebruik van [Kubernetes Secrets](https://kubernetes.io/docs/concepts/configuration/secret/) van belang.
 
 6.Definieer een tweede taak genaamd `show-readme.yaml` die de readme bestand van Pitstop leest.
 
@@ -258,17 +256,25 @@ Het implementeren van Tekton CI/CD in een ontwikkelteam kan veel voordelen biede
 
 Uitdagingen:
 
+- **Complexiteit van YAML**: Tekton gebruikt YAML-bestanden voor het definiëren van pipelines. Deze YAML-bestanden kunnen complex worden, vooral bij grotere en complexere CI/CD-pipelines
+
 - **Leercurve**: Ontwikkelaars moeten Kubernetes goed onder de knie hebben om te kunnen beginnen aan Tekton. Het helpt als er al kennis van andere CI/CD systemen zijn, aangezien de concepten vergelijkbaar zijn.
 
 - **Bestaande CI/CD-systemen**: Als er al bestaande CI/CD-tools en -processen zijn, kan het integreren van Tekton met deze systemen een uitdaging zijn. Dit kan aanpassingen aan bestaande workflows vereisen.
 
 - **Resource Management**: Het beheren van resources zoals Workspaces, Secrets en ConfigMaps kan complex zijn, vooral als er een complexe applicatiestructuur is.
 
+- **Ondersteuning van community**: Vergeleken met meer bekende CI/CD Systemen, is het met Tekton een stuk lastiger om naar oplossingen te zoeken op problemen waar je tegenaan loopt.
+
 ## Conclusie
 
-Dit blog heeft een aantal theoretische aspecten van Tekton en een praktisch voorbeeld door een git repository te clonen en de readme van de git repository uit te lezen.
+In dit blog hebben we gekeken wat CI/CD systemen over het algemeen inhoudt inclusief de concepten. Daarna hebben we gezien van Tekton is, hoe het werkt en de concepten van Tekton, zowel bekende termen van andere CI/CD systemen als termen die exclusief in het Tekton ecosysteem staan. Vervolgens hebben we de kenmerken en voordelen van Tekton bekeken, en een demo uitgevoerd door de readme van de Pitstop repository uit te lezen. Als laatst hebben we nog naar uitdagingen gekeken dat je tegen kan komen als je Tekton CI/CD wilt gebruiken.
 
-Tekton biedt een gestandaardiseerde en flexibele oplossing voor CI/CD binnen Kubernetes-omgevingen. Met zijn sterke focus op containerisatie, native integratie met Kubernetes en schaalbaarheid, staat Tekton als een toekomstgerichte keuze voor teams die werken met cloud-native applicaties.
+Het opzetten van Tekton vond ik lastig om te doen. Dit komt vooral door de combinatie van Kubernetes en de moeilijkheid om naar oplossingen bij problemen te zoeken. Dat laatste komt vooral omdat Tekton alleen voor Kubernetes gemaakt is, waardoor de community niet zo groot als Gitlab CI/CD of Github Actions is.
+
+Ik kan wel de potentie zien als je al aardig veel ervaring met Kubernetes hebt, omdat de pipelines makkelijk te hergebruiken en in te zetten zijn door het gebruik van de YAML bestanden, en omdat Tekton voornamelijk in Kubernetes draait, waardoor je meer controle hebt als je bij de cluster kan. Bij Gitlab CI/CD en Github Actions moet je nog een aparte runner instellen waar de pipeline op draait. Dit is bij Tekton niet nodig, wat ook een voordeel kan zijn.
+
+Voor ontwikkelaars met veel Kubernetes ervaring kan ik Tekton zeker aanraden om daarmee te werken. Zelf zou ik Tekton pas gebruiken zodra ik meer ervaring met pipelines en Kubernetes heb. Op dit moment zie ik bij mezelf geen reden om van standaard CI/CD systemen af te gaan.
 
 ## Bronnen
 
