@@ -8,7 +8,7 @@ Eerst volgt er een algemene introductie voor Tekton CI/CD. Hierin beschrijf ik w
 
 Dan bekijk ik wat voor sterke en zwakke punten er zijn bij het gebruik van Tekton. Daarna volgt er een demo voor Tekton waarbij ik laat zien hoe het readme bestand uit een bepaalde repository te lezen is. Vervolgens beschrijf ik een aantal uitdagingen die er zijn om Tekton te kunnen implementeren. Als laatst volgt er een conclusie waarbij ik samenvat wat er in de blog is beschreven, en geef ik mijn mening over Tekton.
 
-## CI/CD Systemen
+## Wat zijn CI/CD systemen?
 
 De afkorting CI/CD staat voor respectievelijk Continuous Integration en Continuous Deployment. Continuous integration houdt in dat ontwikkelaars regelmatig hun code integreren in een gedeelde repository. Het testen van de code gaat vaak automatisch via een pipeline d.m.v. automatische tests, waardoor ontwikkelaars eventuele conflicten of fouten vroegtijdig kunnen ontdekken en oplossen.
 Continuous Deployment bouwt hier verder op in door de code na het automatisch testen, via de pipeline direct te deployen op de productieomgeving. Dit betekent dat wijzigingen vaak snel plaatsvinden (Working Talent, z.d.).
