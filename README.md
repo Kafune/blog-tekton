@@ -32,7 +32,7 @@ Er zijn aardig wat overeenkomsten tussen andere CI/CD Tools. Het grootste versch
 
 ## Hoe werkt Tekton?
 
-Tekton maakt gebruik van een reeks van Kubernetes resources die samenwerken om CI/CD pipelines te definiëren en uit te voeren. Hierdoor is het makkelijker om Tekton met een bestaande Kubernetes infrastructuur te integreren (Amir, 2023). Veel termen zijn al beschreven in het hoofdstuk [CI/CD Systemen](#wat-zijn-cicd-systemen). Tekton heeft in het ecosysteem ook zijn eigen termen. Hieronder deel ik de termen op door termen die we al tegengekomen zijn en termen die vooral voor Tekton relevant zijn.
+Tekton maakt gebruik van een reeks van Kubernetes resources die samenwerken om CI/CD pipelines te definiëren en uit te voeren. Hierdoor is het makkelijker om Tekton met een bestaande Kubernetes infrastructuur te integreren (Amir, 2023). Veel termen zijn al beschreven in het hoofdstuk [Wat zijn CI/CD Systemen?](#wat-zijn-cicd-systemen) Tekton heeft in het ecosysteem ook zijn eigen termen. Hieronder deel ik de termen op door termen die we al tegengekomen zijn en termen die vooral voor Tekton relevant zijn.
 
 ### Bekende termen
 
@@ -279,22 +279,22 @@ Voor ontwikkelaars met veel Kubernetes ervaring kan ik Tekton zeker aanraden om 
 
 ## Bronnen
 
-Working Talent. (z.d.). *Wat is Continuous Integration/Continuous Deployment?* Geraadpleegd op 8 december 2023, van <https://www.workingtalent.nl/continuous-integration-continuous-deployment>
-
-Microsoft. (2022, 21 december). *Key concepts overview.* Geraadpleegd op 8 december 2023, van <https://learn.microsoft.com/en-us/azure/devops/pipelines/get-started/key-pipelines-concepts?view=azure-devops>
-
-Tekton. (z.d.). *Tekton.* Geraadpleegd op 08 december 2023, van <https://tekton.dev/>
-
 Amir, R. (2023, 4 april). *GitHub Actions vs Bitbucket Pipelines vs GitLab CI vs Tekton: The best CI/CD tool for you?* Stakater. Geraadpleegd op 5 december 2023, van <https://www.stakater.com/post/github-actions-vs-bitbucket-pipelines-vs-gitlab-ci-vs-tekton-bestcicdtool>
 
-Tekton. (z.d.). *Overview.* Geraadpleegd op 5 december 2023, van <https://tekton.dev/docs/concepts/overview>
+ChatGPT. (2023, 8 december). *Uitdagingen en nadelen bij implementatie Tekton.* OpenAI. Geraadpleegd op 8 december 2023, van <https://chat.openai.com/share/82ea004e-3352-44bc-9d46-9f889bcfc078>
 
 Gravestijn, T. (2021, 27 oktober). *Tekton – De manier om cloud native CI/CD pipelines op te zetten.* HCS Company. Geraadpleegd op 8 december 2023, van <https://www.hcs-company.com/blog/tekton/>
 
-Widmer, V. (2022, 25 januari). *Cloud Native CI/CD with Tekton and ArgoCD on AWS.* Amazon Web Services. Geraadpleegd op 8 december 2023, van <https://aws.amazon.com/blogs/containers/cloud-native-ci-cd-with-tekton-and-argocd-on-aws/#:~:text=Tekton%20is%20an%20open-source,natively%20on%20top%20of%20Kubernetes>
-
-Platform9. (2023, 1 maart). *Argo CD vs Tekton vs Jenkins X: Finding the Right GitOps Tooling.* Geraadpleegd op 8 december 2023, van <https://platform9.com/blog/argo-cd-vs-tekton-vs-jenkins-x-finding-the-right-gitops-tooling/>
+Microsoft. (2022, 21 december). *Key concepts overview.* Geraadpleegd op 8 december 2023, van <https://learn.microsoft.com/en-us/azure/devops/pipelines/get-started/key-pipelines-concepts?view=azure-devops>
 
 Piotr.Minkowski. (2021, 5 augustus). *Kubernetes CI/CD with Tekton and ArgoCD - Piotr's TechBlog.* Piotr’s TechBlog. Geraadpleegd op 5 december 2023, van <https://piotrminkowski.com/2021/08/05/kubernetes-ci-cd-with-tekton-and-argocd/>
 
-ChatGPT. (2023, 8 december). *Uitdagingen en nadelen bij implementatie Tekton.* OpenAI. Geraadpleegd op 8 december 2023, van <https://chat.openai.com/share/82ea004e-3352-44bc-9d46-9f889bcfc078>
+Platform9. (2023, 1 maart). *Argo CD vs Tekton vs Jenkins X: Finding the Right GitOps Tooling.* Geraadpleegd op 8 december 2023, van <https://platform9.com/blog/argo-cd-vs-tekton-vs-jenkins-x-finding-the-right-gitops-tooling/>
+
+Tekton. (z.d.). *Overview.* Geraadpleegd op 5 december 2023, van <https://tekton.dev/docs/concepts/overview>
+
+Tekton. (z.d.). *Tekton.* Geraadpleegd op 08 december 2023, van <https://tekton.dev/>
+
+Widmer, V. (2022, 25 januari). *Cloud Native CI/CD with Tekton and ArgoCD on AWS.* Amazon Web Services. Geraadpleegd op 8 december 2023, van <https://aws.amazon.com/blogs/containers/cloud-native-ci-cd-with-tekton-and-argocd-on-aws/#:~:text=Tekton%20is%20an%20open-source,natively%20on%20top%20of%20Kubernetes>
+
+Working Talent. (z.d.). *Wat is Continuous Integration/Continuous Deployment?* Geraadpleegd op 8 december 2023, van <https://www.workingtalent.nl/continuous-integration-continuous-deployment>
