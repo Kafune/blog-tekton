@@ -11,18 +11,18 @@ Dan bekijk ik wat voor sterke en zwakke punten er zijn bij het gebruik van Tekto
 ## CI/CD Systemen
 
 CI/CD staan voor respectievelijk Continuous Integration en Continuous Deployment. Continuous integration houdt in dat ontwikkelaars regelmatig hun code integreren in een gedeelde repository. Het testen van de code gaat vaak automatisch via een pipeline d.m.v. automatische tests, waardoor eventuele conflicten of fouten vroegtijdig worden ontdekt en opgelost.
-Continuous Deployment bouwt hier verder op in door de code na het automatisch testen, via de pipeline direct te deployen op de productieomgeving. Dit betekent dat wijzigingen vaak snel plaatsvinden (BRON:https://www.workingtalent.nl/continuous-integration-continuous-deployment).
+Continuous Deployment bouwt hier verder op in door de code na het automatisch testen, via de pipeline direct te deployen op de productieomgeving. Dit betekent dat wijzigingen vaak snel plaatsvinden (Working Talent, z.d.).
 
 Beide processen zijn belangrijk om software snel op te kunnen leveren met zo min mogelijke fouten en conflicten. Door constant te controleren hierop, is het makkelijker voor ontwikkelaars om samen te werken. Een aantal voorbeelden van CI/CD systemen zijn [Gitlab CI/CD](https://docs.gitlab.com/ee/ci/), [Github Actions](https://github.com/features/actions) of [Azure DevOps](https://azure.microsoft.com/nl-nl/products/devops).
 
 ![Werking van een pipeline](https://learn.microsoft.com/nl-nl/azure/devops/pipelines/get-started/media/key-concepts-overview.svg?view=azure-devops)
-**Figuur 1: Het werking van een algemene pipeline dat meerdere tasks bevat in een pipeline** TODO: BRONVERMELDING
+**Figuur 1: Het werking van een pipeline in een CI/CD systeem (Microsoft, 2022).**
 
-De pipeline is vaak te configureren d.m.v. een YAML bestand. Een pipeline gaat alleen af door een bepaalde trigger. Denk bijvoorbeeld hierbij aan wanneer een ontwikkelaar een push van code naar het versiebeersysteem doet. Een pipeline bestaat vaak uit een aantal stages of fases, zoals het bouwen, testen en releasen van een applicatie. Dit soort fases zijn in de afbeelding gedefinieerd als een stage. Elk stage bevat een agent, wat ook bekend is als een image, bijvoorbeeld een Ubuntu-image. De pipeline heeft een kleine virtuele omgeving waar de applicatie op Ubuntu draait voor een specifieke stage. Zodra de pipeline doorgaat naar de volgende stage, kan er zomaar een ander agent draaien (BRON: https://learn.microsoft.com/nl-nl/azure/devops/pipelines/get-started/key-pipelines-concepts?view=azure-devops).
+De pipeline is vaak te configureren d.m.v. een YAML bestand. Een pipeline gaat alleen af door een bepaalde trigger. Denk bijvoorbeeld hierbij aan wanneer een ontwikkelaar een push van code naar het versiebeersysteem doet. Een pipeline bestaat vaak uit een aantal stages of fases, zoals het bouwen, testen en releasen van een applicatie. Dit soort fases zijn in figuur 1 gedefinieerd als een stage. Elk stage bevat een agent, wat ook bekend is als een image, bijvoorbeeld een Ubuntu-image. De pipeline heeft een kleine virtuele omgeving waar de applicatie op Ubuntu draait voor een specifieke stage. Zodra de pipeline doorgaat naar de volgende stage, kan er zomaar een ander agent draaien (Microsoft, 2022).
 
-Als laatst komen de stappen (steps in de afbeelding). Dit zijn vooral de commando's die de pipeline uitvoert. Denk hierbij aan command line commando's zoals het bouwen van een bepaalde applicatie, of het uitvoeren van een test. Ook kan de pipeline taken zoals bepaalde scripts uitvoeren. In het afbeelding gaat dit bijvoorbeeld om het aanroepen van een API, of het deployen van een applicatie. Hiervoor is het handig om kennis van Linux te hebben.
+Als laatst komen de stappen (steps in figuur 1). Dit zijn vooral de commando's die de pipeline uitvoert. Denk hierbij aan command line commando's zoals het bouwen van een bepaalde applicatie, of het uitvoeren van een test. Ook kan de pipeline taken zoals bepaalde scripts uitvoeren. In het afbeelding gaat dit bijvoorbeeld om het aanroepen van een API, of het deployen van een applicatie. Hiervoor is het handig om kennis van Linux te hebben.
 
-Nu dat de werking van het CI/CD systemen d.m.v. pipelines en een aantal termen zijn beschreven, is het makkelijker om het over Tekton te hebben.
+Nu dat de werking van het CI/CD systemen d.m.v. pipelines en een aantal termen duidelijker zijn, is het makkelijker om de stap naar Tekton te maken.
 
 ## Wat is Tekton?
 
@@ -36,47 +36,46 @@ Tekton maakt gebruik van een reeks van Kubernetes-resources die samenwerken om C
 
 ### Bekende termen
 
-**Steps**: Een step is een uitvoering van een commando in CI/CD, zoals het uitvoeren van unit tests, of het implementeren van een applicatie. Tekton voert elke stap uit met een Docker container image (BRON fixen: OVERVIEW, 2023). In principe hetzelfde als elk ander CI/CD systeem.
-
-**Tasks:** Een taak bestaat uit een collectie van *steps*. Het is een geautomatiseerde stap die specifieke acties uitvoert, zoals het bouwen van een containerimage of het deployen van een applicatie.
+**Steps**: Een step is een uitvoering van een commando in CI/CD, zoals het uitvoeren van unit tests, of het implementeren van een applicatie. Tekton voert elke stap uit met een Docker container image (Tekton, z.d.). In principe hetzelfde als elk ander CI/CD systeem.
 
 **Pipeline:** Een pipeline in Tekton bestaat uit een collectie *tasks* die Tekton op een bepaalde volgorde uitvoert. Hiermee kunnen ontwikkelaars complexe workflows definiëren die bestaan uit meerdere taken.
 
 **Trigger:** Het is mogelijk om Tekton te integreren met triggersystemen, waardoor pipelines af gaan op basis van gebeurtenissen zoals codecommits, pull-aanvragen of andere gebeurtenissen in een versiebeheersysteem. Dit gebeurt op basis van [Eventlisteners](https://tekton.dev/docs/triggers/eventlisteners/).
 
+Vanaf dit punt in de blog zal ik in plaats van de term stap, de term step gebruiken. Dit is vooral omdat deze termen ook in Tekton zo gedefinieerd zijn.
+
 ### Nieuwe termen binnen Tekton
 
 ![https://tekton.dev/docs/concepts/concept-model/](https://tekton.dev/docs/concepts/concept-tasks-pipelines.png)
-**Figuur 2: Een Taskrun die meerdere tasks bevat in een pipeline** TODO: BRONVERMELDING
+**Figuur 2: Een Taskrun die meerdere tasks bevat in een pipeline (Tekton, z.d.).**
+
+**Tasks:** Een task bestaat uit een collectie van *steps*. Het is een geautomatiseerde step die specifieke acties uitvoert, zoals het bouwen van een containerimage of het deployen van een applicatie.
 
 **Resources:** Tekton maakt gebruik van resources om input- en outputgegevens van een pipeline te beheren. Dit kunnen bijvoorbeeld broncode-repositories, container-images, configuratiebestanden of andere artefacten zijn.
 
-**PipelineRun:** Dit zijn instanties van een bepaalde pipeline. Een Pipeline is een blauwdruk die de stappen en taken definieert om een CI/CD-proces uit te voeren. Wanneer je een Pipeline uitvoert, creëert Tekton een PipelineRun. Dit vertegenwoordigt een specifieke uitvoering of instantie van die pipeline. Het bevat informatie over wanneer het is gestart, welke resources worden gebruikt en de status van elke taak binnen de pipeline.
+**PipelineRun:** Dit zijn instanties van een bepaalde pipeline. Een Pipeline is een blauwdruk die de steps en taken definieert om een CI/CD-proces uit te voeren. Wanneer je een Pipeline uitvoert, creëert Tekton een PipelineRun. Dit vertegenwoordigt een specifieke uitvoering of instantie van die pipeline. Het bevat informatie over wanneer het is gestart, welke resources worden gebruikt en de status van elke task binnen de pipeline.
 
-**TaskRuns**: Deze zijn vergelijkbaar met PipelineRuns, maar zijn gericht op individuele *tasks* binnen een pipeline. Wanneer een taak in de pipeline draait, wordt er een TaskRun gemaakt om die specifieke instantie van de taak te vertegenwoordigen. Het bevat informatie over de uitvoering van die taak, inclusief status, eventuele fouten en de uitvoer ervan(BRON:https://www.hcs-company.com/blog/tekton/
-).
+**TaskRuns**: Deze zijn vergelijkbaar met PipelineRuns, maar zijn gericht op individuele *tasks* binnen een pipeline. Wanneer een task in de pipeline draait, wordt er een TaskRun gemaakt om die specifieke instantie van de task te vertegenwoordigen. Het bevat informatie over de uitvoering van die task, inclusief status, eventuele fouten en de uitvoer ervan (Gravestijn, 2021).
 
 **Workspaces:** Workspaces bieden een manier om gegevens tussen taken in een pipeline te delen. Ze stellen taken in staat om gegevens te schrijven naar en te lezen uit een gedeelde opslagplaats.
 
-Over het algemeen biedt Tekton een gestandaardiseerde manier om CI/CD-pipelines te definiëren en uit te voeren in een Kubernetes-omgeving.
-
 ## Kenmerken en voordelen
 
-Tekton maakt gebruik van YAML-bestanden om CI/CD-pipelines te definiëren. Dit maakt het gemakkelijk te begrijpen en te beheren, en bevordert een infrastructuur-als-code aanpak. Dit is in principe hetzelfde als Gitlab en Github. Beide CI/CD systemen maken gebruik van een YAML bestand om de configuratie van de pipeline te beschrijven.
+Tekton maakt gebruik van YAML-bestanden om CI/CD-pipelines te definiëren. Dit maakt het gemakkelijk te begrijpen en te beheren, en bevordert een infrastructuur-als-code aanpak. Dit is in principe hetzelfde als Gitlab en Github. Beide CI/CD systemen maken namelijk gebruik van een YAML bestand om de configuratie van de pipeline te beschrijven.
 
 Ook brengt Tekton een aantal voordelen voor developers die CI/CD systemen bouwen:
 
-- **Platformonafhankelijkheid**: Tekton draait op Kubernetes als een set van [Kubernetes Custom Resource](https://kubernetes.io/docs/concepts/extend-kubernetes/api-extension/custom-resources/), waardoor Tekton niet afhankelijk is van een specifiek platform en los draait van andere Kubernetes resources (Cloud Native CI/CD with Tekton and ArgoCD on AWS | Amazon Web Services, 2022).
-- **Native Kubernetes-integratie**: Tekton is ontworpen om naadloos samen te werken met Kubernetes. Het maakt gebruik van Kubernetes-podspecs om taken uit te voeren, waardoor het eenvoudig te integreren is in bestaande Kubernetes-omgevingen [BRON FIXEN](https://platform9.com/blog/argo-cd-vs-tekton-vs-jenkins-x-finding-the-right-gitops-tooling/).
+- **Platformonafhankelijkheid**: Tekton draait op Kubernetes als een set van [Kubernetes Custom Resource](https://kubernetes.io/docs/concepts/extend-kubernetes/api-extension/custom-resources/), waardoor Tekton niet afhankelijk is van een specifiek platform en los draait van andere Kubernetes resources (Widmer, 2022).
+- **Native Kubernetes-integratie**: Tekton is ontworpen om naadloos samen te werken met Kubernetes. Het maakt gebruik van Kubernetes-podspecs om taken uit te voeren, waardoor het eenvoudig te integreren is in bestaande Kubernetes-omgevingen (Platform9, 2023).
 - **Declaratieve configuratie**: Tekton maakt gebruik van YAML-bestanden voor het definiëren van pipelines, taken en resources. Dit zorgt voor een eenvoudige en begrijpelijke manier om CI/CD-pijplijnen te definiëren en te onderhouden. Het is hierdoor makkelijker om deze pipelines in verschillende projecten neer te zetten door de herbruikbaarheid als de configuratie op Git staat.
-- **Schaalbaarheid**: Door gebruik te maken van Kubernetes voor het orkestreren van taken, profiteert Tekton van de schaalbaarheid en betrouwbaarheid van het Kubernetes-platform. Hierdoor kunnen teams pipelines uitvoeren op een schaal die geschikt is voor hun project, bijvoorbeeld meerdere microservices met een of meerdere pipelines. Als er een vraag naar capaciteit is, is het zo simpel als meer nodes aan een Kubernetes cluster toevoegen. Het is dan niet nodig om de pipeline aan te passen omdat Tekton automatisch schaalt (Overview, 2023).
-- **Uitbreidbaar**: Via [Tekton Hub](https://hub.tekton.dev/) is het makkelijk om nieuwe pipelines te maken met voorgedefinieerde componenten of gebruik te maken van pipelines die anderen hebben gemaakt (Gravestijn, z.d.).
-- **Combinatie ArgoCD**: Waar Tekton voor het hele development zorgt, zoals het bouwen van de applicatie tot het pushen naar een git repository, kan ArgoCD met de Git repo een nieuwe Kubernetes cluster uitrollen (Piotr.Minkowski, 2021). Dit is terug te zien in figuur 3.
-![Werking Tekton & ArgoCD](https://i0.wp.com/piotrminkowski.com/wp-content/uploads/2021/08/tekton-argocd-kubernetes.png?resize=1024%2C362&ssl=1) **Figuur 3: Tekton en ArgoCD gecombineerd**
+- **Schaalbaarheid**: Door gebruik te maken van Kubernetes voor het orkestreren van taken, profiteert Tekton van de schaalbaarheid en betrouwbaarheid van het Kubernetes-platform. Hierdoor kunnen teams pipelines uitvoeren op een schaal die geschikt is voor hun project, bijvoorbeeld meerdere microservices met een of meerdere pipelines. Als er een vraag naar capaciteit is, is het zo simpel als meer nodes aan een Kubernetes cluster toevoegen. Het is dan niet nodig om de pipeline aan te passen omdat Tekton automatisch schaalt (Tekton, z.d.).
+- **Uitbreidbaar**: Via [Tekton Hub](https://hub.tekton.dev/) is het makkelijk om nieuwe pipelines te maken met voorgedefinieerde componenten of gebruik te maken van pipelines die anderen hebben gemaakt (Gravestijn, 2021).
+- **Combinatie ArgoCD**: Waar Tekton voor het hele development zorgt, zoals het bouwen van de applicatie tot het pushen naar een git repository, kan ArgoCD met de Git repo een nieuwe Kubernetes cluster uitrollen (Minkowski, 2021). Dit is terug te zien in figuur 3.
+![Werking Tekton & ArgoCD](https://i0.wp.com/piotrminkowski.com/wp-content/uploads/2021/08/tekton-argocd-kubernetes.png?resize=1024%2C362&ssl=1) **Figuur 3: Tekton en ArgoCD gecombineerd (Minkowski, 2021).**
 
 ## Uitlezen README van Pitstop met Tekton
 
-Voor een praktisch voorbeeld gaan we de [Pitstop](https://github.com/EdwinVW/pitstop) clonen en de Readme bestand daarvan uitlezen met de [Cat](https://www.geeksforgeeks.org/cat-command-in-linux-with-examples/) commando. In het praktijk heeft dit vaak niet zoveel toegevoegde waarde. Echter is het goed om te weten of het clonen van een repository gelukt is. Dit is één van de manieren om het te bereiken. Het clonen van een repository is vaak de eerste stap binnen een CI/CD die een ontwikkelaar uitvoert binnen een pipeline, zodat de pipeline o.a. de applicatie zelf kan bouwen en eventueel een Docker Image beschikbaar kan stellen.
+Voor een praktisch voorbeeld gaan we de [Pitstop](https://github.com/EdwinVW/pitstop) clonen en de Readme bestand daarvan uitlezen met de [Cat](https://www.geeksforgeeks.org/cat-command-in-linux-with-examples/) commando. In het praktijk heeft dit vaak niet zoveel toegevoegde waarde. Echter is het goed om te weten of het clonen van een repository gelukt is. Dit is één van de manieren om het te bereiken. Het clonen van een repository is vaak de eerste step binnen een CI/CD die een ontwikkelaar uitvoert binnen een pipeline, zodat de pipeline o.a. de applicatie zelf kan bouwen en eventueel een Docker Image beschikbaar kan stellen.
 
 Minimale vooreisen om de demo uit te kunnen voeren:
 
@@ -92,9 +91,10 @@ Tkn is op [meerdere manieren](https://tekton.dev/docs/cli/) te installeren. Zelf
 minikube start --kubernetes-version v1.27.4
 ```
 
-Kubernetes is nu beschikbaar op de lokale machine
+Kubernetes is nu beschikbaar op de lokale machine, zoals te zien in figuur 4.
 
 ![Start van minikube](images/image-1.png)
+**Figuur 4: Het succesvol opstarten van Minikube in de terminal.**
 
 2.Deploy Tekton op de Kubernetes cluster.
 
@@ -110,7 +110,7 @@ Nu zijn er allerlei [Tekton componenten](https://tekton.dev/docs/concepts/overvi
 
 - Een configuratie toe met een parameter die de pipeline run moet ontvangen.
 - Een referentie naar een workspace zodat de pipelinerun de gedownloade bestanden kan opslaan. Dit is vergelijkbaar met [Caching in Gitlab](https://docs.gitlab.com/ee/ci/caching/).
-- De taak die de ingevoerde parameter en de workspace van hiervoor gebruikt.
+- De task die de geconfigureerde parameter en de referentie van de workspace gebruikt.
 
 ```yaml
 apiVersion: tekton.dev/v1beta1
@@ -145,7 +145,7 @@ spec:
       value: $(params.repo-url)
 ```
 
-4.Maak daarna een nieuwe `pipelinerun.yaml` aan. Deze pipelinerun instantieert de Pipeline die in de vorige stap is gedefinieerd. Gebruik de workspace die in `pipeline.yaml` gedefinieerd is. De grootte van de workspace is zelf in te stellen.
+4.Maak daarna een nieuwe `pipelinerun.yaml` aan. De pipelinerun instantieert de Pipeline die in stap 3 is gedefinieerd. Gebruik de workspace die in `pipeline.yaml` gedefinieerd is. De grootte van de workspace is zelf in te stellen.
 
 ```yaml
 apiVersion: tekton.dev/v1beta1
@@ -180,9 +180,9 @@ spec:
     value: https://github.com/EdwinVW/pitstop.git
 ```
 
-5a.*Optioneel*: Maak gebruik van SSH om Pitstop te clonen. Hierbij is het gebruik van [Kubernetes Secrets](https://kubernetes.io/docs/concepts/configuration/secret/) van belang.
+5a.*Optioneel*: Maak gebruik van SSH om Pitstop te clonen. Hierbij is het gebruik van [Kubernetes SSH authentication Secrets](https://kubernetes.io/docs/concepts/configuration/secret/#ssh-authentication-secrets) van belang om de private key op te kunnen slaan.
 
-6.Definieer een tweede taak genaamd `show-readme.yaml` die de readme bestand van Pitstop leest.
+6.Definieer een tweede task genaamd `show-readme.yaml` die de readme bestand van Pitstop leest.
 
 ```yaml
 apiVersion: tekton.dev/v1beta1
@@ -201,7 +201,7 @@ spec:
       cat $(workspaces.source.path)/README.md
 ```
 
-7.Klik terug op `pipeline.yaml` en voeg binnen de spec onder `tasks`de tweede taak toe.
+7.Klik terug op `pipeline.yaml` en voeg binnen de spec onder `tasks` de tweede task toe.
 
 ```yaml
   tasks:
@@ -237,25 +237,24 @@ kubectl create -f pipelinerun.yaml
 
 ```
 
-Er komt een pipelinerun terug met een unieke naam.
-![Alt text](images/image.png)
-FIGUUR 3 GEEN BRON
+Er komt een pipelinerun terug met een unieke naam, zoals te zien in figuur 5.
 
-10.Het is nu mogelijk om de logs van de Pipeline run te bekijken. Als het goed is komt hier de Readme van Pitstop terug.
+![Alt text](images/image.png)
+**Figuur 5: Een unieke pipelinerun dat de show-readme task en de pipeline bevat.**
+
+10.Het is nu mogelijk om de logs van de Pipeline run te bekijken. Als het goed is komt hier de Readme van Pitstop terug door het volgende commando uit te voeren:
 
 ```text
 tkn pipelinerun logs  clone-read-run-ttfln -f
 ```
 ![Alt text](images/readme-pipeline.png)
-
+**Figuur 6: De readme van pitstop, uitgelezen met behulp van Tekton.**
 
 Nu weten we dat het clonen van de repository gelukt is. Als er een Dockerfile ergens in de repository zou zitten, is het met [Kaniko](https://github.com/GoogleContainerTools/kaniko) mogelijk om een Docker image te bouwen en deze image beschikbaar te stellen op een externe registry zoals Docker Hub of Github Container Registry. Systemen waar Docker op draait kunnen deze images dan makkelijk ophalen.
 
 ## Uitdagingen
 
-Het implementeren van Tekton CI/CD in een ontwikkelteam kan veel voordelen bieden, zoals gestroomlijnde en geautomatiseerde deployment pipelines. Echter, net zoals bij elke nieuwe technologie, zijn er ook uitdagingen die kunnen optreden. Hier zijn enkele mogelijke uitdagingen en oplossingen bij het implementeren van Tekton CI/CD:
-
-Uitdagingen:
+Het implementeren van Tekton CI/CD in een ontwikkelteam kan veel voordelen bieden, zoals gestroomlijnde en geautomatiseerde deployment pipelines, maar zoals bij veel technologieën zijn er uitdagingen en nadelen bij de implementatie ervan:
 
 - **Complexiteit van YAML**: Tekton gebruikt YAML-bestanden voor het definiëren van pipelines. Deze YAML-bestanden kunnen complex worden, vooral bij grotere en complexere CI/CD-pipelines
 
@@ -265,7 +264,7 @@ Uitdagingen:
 
 - **Resource Management**: Het beheren van resources zoals Workspaces, Secrets en ConfigMaps kan complex zijn, vooral als er een complexe applicatiestructuur is.
 
-- **Ondersteuning van community**: Vergeleken met meer bekende CI/CD Systemen, is het met Tekton een stuk lastiger om naar oplossingen te zoeken op problemen waar je tegenaan loopt.
+- **Ondersteuning van community**: Vergeleken met meer bekende CI/CD Systemen, is het met Tekton een stuk lastiger om naar oplossingen te zoeken op problemen waar je tegenaan loopt (ChatGPT, 2023).
 
 ## Conclusie
 
@@ -279,19 +278,22 @@ Voor ontwikkelaars met veel Kubernetes ervaring kan ik Tekton zeker aanraden om 
 
 ## Bronnen
 
-TODO: Bronnen checken chatgpt en tekton
-TODO: tekst in bronnen checken
+Working Talent. (z.d.). *Wat is Continuous Integration/Continuous Deployment?* Geraadpleegd op 8 december 2023, van <https://www.workingtalent.nl/continuous-integration-continuous-deployment>
 
-*ChatGPT.* (z.d.). OpenAI. Geraagdpleegd op 05 augustus 2023, van <https://chat.openai.com/>
+Microsoft. (2022, 21 december). *Key concepts overview.* Geraadpleegd op 8 december 2023, van <https://learn.microsoft.com/en-us/azure/devops/pipelines/get-started/key-pipelines-concepts?view=azure-devops>
 
-*Tekton.* (z.d.). Tekton. <https://tekton.dev/>
+Tekton. (z.d.). *Tekton.* Geraadpleegd op 08 december 2023, van <https://tekton.dev/>
 
-Amir, R. (2023, 21 juni). *GitHub Actions vs Bitbucket Pipelines vs GitLab CI vs Tekton: The best CI/CD tool for you?* Stakater. Geraadpleegd op 05 augustus 2023, van <https://www.stakater.com/post/github-actions-vs-bitbucket-pipelines-vs-gitlab-ci-vs-tekton-bestcicdtool>
+Amir, R. (2023, 4 april). *GitHub Actions vs Bitbucket Pipelines vs GitLab CI vs Tekton: The best CI/CD tool for you?* Stakater. Geraadpleegd op 5 december 2023, van <https://www.stakater.com/post/github-actions-vs-bitbucket-pipelines-vs-gitlab-ci-vs-tekton-bestcicdtool>
 
-Piotr.Minkowski. (2021, 5 augustus). *Kubernetes CI/CD with Tekton and ArgoCD - Piotr's TechBlog.* Piotr’s TechBlog. Geraadpleegd op 05 augustus 2023, van <https://piotrminkowski.com/2021/08/05/kubernetes-ci-cd-with-tekton-and-argocd/>
+Tekton. (z.d.). *Overview.* Geraadpleegd op 5 december 2023, van <https://tekton.dev/docs/concepts/overview>
 
-*Overview.* (2023, 9 maart). Tekton. <https://tekton.dev/docs/concepts/overview/>
+Gravestijn, T. (2021, 27 oktober). *Tekton – De manier om cloud native CI/CD pipelines op te zetten.* HCS Company. Geraadpleegd op 8 december 2023, van <https://www.hcs-company.com/blog/tekton/>
 
-Gravestijn, T. (2021, 27 oktober). *Tekton – De manier om cloud native CI/CD pipelines op te zetten.* HCS Company. Geraadpleegd op 05 augustus 2023, van <https://www.hcs-company.com/blog/tekton>
+Widmer, V. (2022, 25 januari). *Cloud Native CI/CD with Tekton and ArgoCD on AWS.* Amazon Web Services. Geraadpleegd op 8 december 2023, van <https://aws.amazon.com/blogs/containers/cloud-native-ci-cd-with-tekton-and-argocd-on-aws/#:~:text=Tekton%20is%20an%20open-source,natively%20on%20top%20of%20Kubernetes>
 
-*Cloud Native CI/CD with Tekton and ArgoCD on AWS | Amazon Web Services.* (2022, 25 januari). Amazon Web Services. Geraadpleegd op 05 augustus 2023, van <https://aws.amazon.com/blogs/containers/cloud-native-ci-cd-with-tekton-and-argocd-on-aws/#:~:text=Tekton%20is%20an%20open%2Dsource,natively%20on%20top%20of%20Kubernetes>
+Platform9. (2023, 1 maart). *Argo CD vs Tekton vs Jenkins X: Finding the Right GitOps Tooling.* Geraadpleegd op 8 december 2023, van <https://platform9.com/blog/argo-cd-vs-tekton-vs-jenkins-x-finding-the-right-gitops-tooling/>
+
+Piotr.Minkowski. (2021, 5 augustus). *Kubernetes CI/CD with Tekton and ArgoCD - Piotr's TechBlog.* Piotr’s TechBlog. Geraadpleegd op 5 december 2023, van <https://piotrminkowski.com/2021/08/05/kubernetes-ci-cd-with-tekton-and-argocd/>
+
+ChatGPT. (2023, 8 december). *Uitdagingen en nadelen bij implementatie Tekton.* OpenAI. Geraadpleegd op 8 december 2023, van <https://chat.openai.com/share/82ea004e-3352-44bc-9d46-9f889bcfc078>
