@@ -32,7 +32,7 @@ Er zijn aardig wat overeenkomsten tussen andere CI/CD Tools. Het grootste versch
 
 ## Hoe werkt Tekton?
 
-Tekton maakt gebruik van een reeks van Kubernetes resources die samenwerken om CI/CD pipelines te definiëren en uit te voeren. Hierdoor is het makkelijker om Tekton met een bestaande Kubernetes infrastructuur te integreren (Amir, 2023). Veel termen zijn al beschreven in het hoofdstuk [CI/CD Systemen](#cicd-systemen). Tekton heeft in het ecosysteem ook zijn eigen termen. Hieronder deel ik de termen op door termen die we al tegengekomen zijn en termen die vooral voor Tekton relevant zijn.
+Tekton maakt gebruik van een reeks van Kubernetes resources die samenwerken om CI/CD pipelines te definiëren en uit te voeren. Hierdoor is het makkelijker om Tekton met een bestaande Kubernetes infrastructuur te integreren (Amir, 2023). Veel termen zijn al beschreven in het hoofdstuk [CI/CD Systemen](#wat-zijn-cicd-systemen). Tekton heeft in het ecosysteem ook zijn eigen termen. Hieronder deel ik de termen op door termen die we al tegengekomen zijn en termen die vooral voor Tekton relevant zijn.
 
 ### Bekende termen
 
